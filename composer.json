@@ -1,0 +1,32 @@
+{
+    "name": "luanardev/employees-module",
+    "type": "laravel-module",
+    "description": "Lumis Employees Module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brian Simpokolwe",
+            "email": "bsimpokolwe@luanar.ac.mw"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Luanardev\\Modules\\Employees\\Providers\\EmployeesServiceProvider"
+            ],
+            "aliases": {
+				"EmployeeSettings": "Luanardev\\Modules\\Employees\\Facades\\EmployeeSettings"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Luanardev\\Modules\\Employees\\": ""
+        }
+    },
+    "scripts": {      
+        "post-install-module-cmd": [
+            "@php artisan module:install employees"
+        ]
+    }
+}

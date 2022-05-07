@@ -1,0 +1,23 @@
+{
+    "name": "Employees",
+
+    "configurable": true,
+
+    "permissions": [
+        "create_employee",
+        "view_employee",
+        "update_employee",
+        "delete_employee",
+        "create_staff_card",
+        "view_staff_card",
+        "print_staff_card", 
+        "create_employment",
+        "update_employment", 
+        "create_appointment",
+        "view_appointment",
+        "update_appointment",
+        "delete_staff_progress",   
+        "view_employee_report",
+        "configure_employees"   
+    ]
+}

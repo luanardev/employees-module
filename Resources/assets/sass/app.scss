@@ -1,0 +1,25 @@
+.center{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo img{
+    max-width: 150px;
+    max-height: 150px;
+}
+.page-break {
+    page-break-after: always;
+}
+.field-label {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+.field-value {
+    display: inline-block;
+    width: auto;
+    text-align: right;
+    padding-left: 50px;
+}

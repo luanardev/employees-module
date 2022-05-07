@@ -1,0 +1,15 @@
+{
+    "name": "Employees",
+    "alias": "employees",
+    "description": "",
+    "keywords": [],
+    "priority": 1,
+    "providers": [
+        "Luanardev\\Modules\\Employees\\Providers\\EmployeesServiceProvider"
+    ],
+    "aliases": {
+        "EmployeeSettings": "Luanardev\\Modules\\Employees\\Facades\\EmployeeSettings"
+    },
+    "files": [],
+    "requires": []
+}
