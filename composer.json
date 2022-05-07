@@ -23,10 +23,5 @@
         "psr-4": {
             "Luanardev\\Modules\\Employees\\": ""
         }
-    },
-    "scripts": {      
-        "post-install-module-cmd": [
-            "@php artisan module:install employees"
-        ]
     }
 }
