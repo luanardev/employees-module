@@ -1,17 +1,33 @@
 <?php
 namespace Luanardev\Modules\Employees\Concerns;
+use Illuminate\Database\Eloquent\Model;
 use Luanardev\Modules\Employees\Entities\Employee;
 
 trait WithEmployee
 {
     /**
      * Get Employee Record
-     * 
+     * @param string $email
      * @return Employee|null
      */
-    public function getEmployee()
+    public function getEmployee($email=null)
     {
-        return Employee::findByEmail($this->email);
+        if(empty($email)){
+            $email = $this->getEmail(self);
+        }
+        if(!empty($email)){
+            return Employee::findByEmail($email);
+        }
+       
+    }
+
+    /**
+     * Check whether employee record exists
+     */
+    public function employeeExists()
+    {
+        $employee = $this->getEmployee();
+        return !empty($record)? true:false;
     }
 
     /**
@@ -22,8 +38,15 @@ trait WithEmployee
     public function getEmployeeId()
     {
         $employee = $this->getEmployee();
-        if(!empty($employee)){
+        if($this->employeeExists()){
             return $employee->getKey();
+        }
+    }
+
+    private function getEmail($model)
+    {
+        if($model instanceof Model){
+            return $model->getAttribute('email');
         }
     }
     
