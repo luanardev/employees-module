@@ -27,7 +27,7 @@ trait WithEmployee
     public function employeeExists()
     {
         $employee = $this->getEmployee();
-        return !empty($record)? true:false;
+        return !empty($employee)? true:false;
     }
 
     /**
