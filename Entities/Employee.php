@@ -214,4 +214,18 @@ class Employee extends Model
                 ->orWhere('lastname', 'like', "%{$term}%");
     }
 
+    /**
+     * Find Employee by email
+     *
+     * @param string $email
+     * @return self|null
+     */
+    public static function findByEmail($email)
+    {
+        return static::where('official_email', $email)
+                ->orWhere('personal_email', $email)
+                ->first();
+
+    }
+
 }
