@@ -9,10 +9,6 @@
             "email": "bsimpokolwe@luanar.ac.mw"
         }
     ],
-	"require": {
-        "luanardev/institution-module": "^1.0",
-		"luanardev/employees-settings-module": "^1.0"
-    },
     "extra": {
         "laravel": {
             "providers": [
