@@ -67,7 +67,7 @@
                         @if(!is_null($staff->avatar))
                             <img src="{{ asset("storage/".$staff->avatar) }}"class="img-fluid img-thumbnail"  />
                         @else
-                            <img src="{{ asset('assets/images/default.png') }}" class="img-fluid img-thumbnail"  />
+                            <img src="{{ asset('img/default.png') }}" class="img-fluid img-thumbnail"  />
                         @endif
 
                     </div>

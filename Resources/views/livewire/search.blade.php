@@ -29,7 +29,7 @@
                                 @if(!is_null($staff->avatar))
                                     <img src="{{ asset("storage/".$staff->avatar) }}" class="img-fluid" style="max-height: 100px;"/>
                                 @else
-                                    <img src="{{ asset('assets/images/default.png') }}" class="img-fluid"  style="max-height: 100px;"/>
+                                    <img src="{{ asset('img/default.png') }}" class="img-fluid"  style="max-height: 100px;"/>
                                 @endif
                             </div>
                             <div class="col px-4">
