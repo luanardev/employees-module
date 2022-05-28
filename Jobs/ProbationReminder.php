@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Carbon;
 use Luanardev\Modules\Employees\Entities\Employment;
 use Luanardev\Modules\Employees\Notifications\Admin\ProbationNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class ProbationReminder implements ShouldQueue
 {
@@ -27,7 +27,7 @@ class ProbationReminder implements ShouldQueue
         $probation = Employment::getProbation();
 
         if($probation->count() > 0){
-            $adminEmail = EmployeeSettings::get('admin_email');
+            $adminEmail = StaffConfig::get('admin_email');
             Notification::route('mail',$adminEmail)->notify(
                 new ProbationNotification()
             );

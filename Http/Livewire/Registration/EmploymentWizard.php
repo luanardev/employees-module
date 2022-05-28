@@ -2,25 +2,22 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\HRSettings\Entities\JobGrade;
+use Luanardev\Modules\HRSettings\Entities\JobNotch;
+use Luanardev\Modules\HRSettings\Entities\JobScale;
+use Luanardev\Modules\HRSettings\Entities\Position;
+use Luanardev\Modules\HRSettings\Entities\JobType;
+use Luanardev\Modules\HRSettings\Entities\JobCategory;
+use Luanardev\Modules\HRSettings\Entities\JobStatus;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Entities\Employment;
-use Luanardev\Modules\Employees\Entities\Grade;
-use Luanardev\Modules\Employees\Entities\Notch;
-use Luanardev\Modules\Employees\Entities\Designation;
-use Luanardev\Modules\Employees\Entities\EmploymentType;
-use Luanardev\Modules\Employees\Entities\EmployeeCategory;
-use Luanardev\Modules\Employees\Entities\EmploymentStatus;
-use Luanardev\Modules\Employees\Enums\WithEnums;
-use Luanardev\Modules\Institution\Entities\Section;
 use Luanardev\Modules\Institution\Entities\Department;
+use Luanardev\Modules\Institution\Entities\Section;
 use Luanardev\Modules\Institution\Entities\Campus;
-use Luanardev\Modules\Institution\Entities\Branch;
 
 
 class EmploymentWizard extends LivewireUI
 {
-    use WithEnums;
-
     public Employment $employment;
 
     public function __construct()
@@ -37,13 +34,13 @@ class EmploymentWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
 
-        $employeeId = session()->get('employee');
+        $employeeId = session()->get('staff');
 
         $this->employment->setKey($employeeId );
         $this->employment->setTenure(
@@ -58,47 +55,46 @@ class EmploymentWizard extends LivewireUI
     public function rules()
     {
         return [
-            'employment.grade' => 'required|string',
-            'employment.designation_id' => 'required',
-            'employment.department_id' => 'required',
-            'employment.section_id' => 'required',
-            'employment.campus_id' => 'required',
-            'employment.employment_type' => 'required',
-            'employment.employee_category' => 'required',
-            'employment.employment_status' => 'required',
+			'employment.position_id' => 'required|numeric',
+            'employment.grade_id' => 'required|numeric',
+            'employment.scale' => 'required|string',
+            'employment.notch' => 'required|numeric',          
+            'employment.department_id' => 'required|numeric',
+            'employment.section_id' => 'required|numeric',
+            'employment.campus_id' => 'required|numeric',
+            'employment.type_id' => 'required|numeric',
+            'employment.category_id' => 'required|numeric',
+            'employment.status_id' => 'required|numeric',
             'employment.start_date' => 'required|date',
             'employment.end_date' => 'nullable|date'
         ];
     }
-
+    
     public function viewData()
     {
-        $this->with('designations', Designation::pluck('id', 'name')->flip()->toArray());
+        $this->with('positions', Position::pluck('id', 'name')->flip()->toArray());
         $this->with('departments', Department::pluck('id', 'name')->flip()->toArray());
         $this->with('sections', Section::pluck('id', 'name')->flip()->toArray());
         $this->with('campuses', Campus::getByUser()->pluck('id', 'name')->flip()->toArray());
-        $this->with('grades', Grade::pluck('grade')->toArray());
-        $this->with('notches', Notch::pluck('notch')->toArray());
-        $this->with('types', EmploymentType::pluck('id', 'name')->flip()->toArray());
-        $this->with('categories', EmployeeCategory::pluck('id', 'name')->flip()->toArray() );
-        $this->with('statuses', EmploymentStatus::pluck('id', 'name')->flip()->toArray() );
-
-
+        $this->with('grades', JobGrade::pluck('id','name')->flip()->toArray());
+        $this->with('scales', JobScale::pluck('scale')->toArray());
+        $this->with('types', JobType::pluck('id', 'name')->flip()->toArray());
+        $this->with('categories', JobCategory::pluck('id', 'name')->flip()->toArray() );
+        $this->with('statuses', JobStatus::pluck('id', 'name')->flip()->toArray() );
     }
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $this->employment = $employee->employment;
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $this->employment = $staff->employment;
         }else{
             $this->employment = new Employment();
         }
     }
 
-    public function notches($grade)
+    public function notches($scale)
     {
-        return Notch::where('grade', $grade)->pluck('notch')->toArray();
+        return JobNotch::where('scale', $scale)->pluck('notch')->toArray();
     }
-
 }

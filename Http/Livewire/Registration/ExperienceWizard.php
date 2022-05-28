@@ -2,7 +2,7 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\Modules\Employees\Entities\Experience;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\LivewireUI\LivewireUI;
 
 class ExperienceWizard extends LivewireUI
@@ -41,13 +41,13 @@ class ExperienceWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->experience->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->experience->staff()->associate($staff);
         $this->experience->save();
         $this->resetFields();
         $this->toastr('Experience saved');
@@ -73,9 +73,9 @@ class ExperienceWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $experience = $employee->experience()->get();
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $experience = $staff->experience()->get();
             $this->with('experience', $experience);
         }else{
             $this->create();

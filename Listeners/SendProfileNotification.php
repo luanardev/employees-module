@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\ProfileUpdated;
 use Luanardev\Modules\Employees\Notifications\ProfileUpdateNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendProfileNotification implements ShouldQueue
 {
@@ -18,12 +18,12 @@ class SendProfileNotification implements ShouldQueue
      */
     public function handle(ProfileUpdated $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
 
         if($shouldNotify){
             Notification::send(
-                $event->employee,
-                new ProfileUpdateNotification($event->employee)
+                $event->staff,
+                new ProfileUpdateNotification($event->staff)
             );
         }
     }

@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\Termination;
 use Luanardev\Modules\Employees\Notifications\TerminationNotification;
 use Luanardev\Modules\Employees\Notifications\Admin\TerminationNotification as AdminNotification;
-
-use EmployeeSettings;
+use StaffConfig;
 
 class SendTerminationNotification implements ShouldQueue
 {
@@ -20,17 +19,17 @@ class SendTerminationNotification implements ShouldQueue
      */
     public function handle(Termination $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
-        $adminEmail = EmployeeSettings::get('admin_email');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
+        $adminEmail = StaffConfig::get('admin_email');
 
         if($shouldNotify){
             Notification::send(
-                $event->employee,
-                new TerminationNotification($event->employee)
+                $event->staff,
+                new TerminationNotification($event->staff)
             );
 
             Notification::route('mail',$adminEmail)->notify(
-                new AdminNotification($event->employee)
+                new AdminNotification($event->staff)
             );
         }
     }

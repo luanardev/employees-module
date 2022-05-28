@@ -1,56 +1,147 @@
 
-<div class="row">
-	<div class="col-lg-2 col-md-12 col-sm-12">
-		<div class="">
-			<div class="">
-				<div class=" nav flex-column nav-pills offset-lg-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a class="nav-link active" data-toggle="pill" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
-					<a class="nav-link"  data-toggle="pill" href="#designation" role="tab" aria-controls="designation" aria-selected="false">Designation</a>
-					<a class="nav-link"  data-toggle="pill" href="#grade" role="tab" aria-controls="grade" aria-selected="false">Job Grade</a>
-					<a class="nav-link"  data-toggle="pill" href="#employee-category" role="tab" aria-controls="employee-category" aria-selected="false">Employee Category</a>
-					<a class="nav-link"  data-toggle="pill" href="#employment-type" role="tab" aria-controls="employment-type" aria-selected="false">Employment Type</a>
-					<a class="nav-link"  data-toggle="pill" href="#employment-status" role="tab" aria-controls="employment-status" aria-selected="false">Employment Status</a>
-					<a class="nav-link"  data-toggle="pill" href="#progress-type" role="tab" aria-controls="progress-type" aria-selected="false">Progress Type</a>
-					<a class="nav-link"  data-toggle="pill" href="#qualification-level" role="tab" aria-controls="qualification-level" aria-selected="false">Qualification Level</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-10 col-md-12 col-sm-12">
-		<div class="tab-content" id="v-pills-tabContent">
-			<div class="tab-pane fade show active" id="general" role="tabpanel" >
-				<livewire:employees::settings.general-config />
-			</div>
+<div>
+    <div class="card card-outline">
+        <x-adminlte-validation />
+        <form wire:submit.prevent="save">
 
-			<div class="tab-pane fade" id="designation" role="tabpanel" >
-				<livewire:employees::settings.designation-config  />
-			</div>
+            <div class="card-header">
+                <h3 class="card-title text-bold">Settings</h3>
+                <div class="float-right">
+                    <a href="{{route('settings.index')}}" class="btn btn-sm btn-outline-primary" >
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </a>
+                    <button type="submit" class=" btn btn-sm btn-primary">
+                        <i class="fas fa-check-circle"></i> Save
+                    </button>
+                    
+                </div>
+               
+            </div>
 
-			<div class="tab-pane fade" id="grade" role="tabpanel" >
-				<livewire:employees::settings.grade-config  />
-			</div>
+            <div class="card-body">
 
-			<div class="tab-pane fade" id="employee-category" role="tabpanel" >
-				<livewire:employees::settings.employee-category-config  />
-			</div>
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Retirement Age
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="number" wire:model.lazy="settings.retirement_age"  class="form-control"  />
+                    </div>
+                </div>
 
-			<div class="tab-pane fade" id="employment-type" role="tabpanel" >
-				<livewire:employees::settings.employment-type-config  />
-			</div>
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Probation Period (years)
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="number" wire:model.lazy="settings.probation_period"  class="form-control"  />
+                    </div>
+                </div>
 
-			<div class="tab-pane fade" id="employment-status" role="tabpanel" >
-				<livewire:employees::settings.employment-status-config  />
-			</div>
-			
-			<div class="tab-pane fade" id="progress-type" role="tabpanel" >
-				<livewire:employees::settings.progress-type-config  />
-			</div>
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Contract Period (years)
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="number" wire:model.lazy="settings.contract_period"  class="form-control"  />
+                    </div>
+                </div>
 
-			<div class="tab-pane fade" id="qualification-level" role="tabpanel" >
-				<livewire:employees::settings.qualification-level-config  />
-			</div>
-		</div>
-	</div>
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Service Period (years)
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="number" wire:model.lazy="settings.service_period"  class="form-control"  />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Appointment Term
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="number" wire:model.lazy="settings.appointment_term"  class="form-control"  />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Email Domain
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="text" wire:model.lazy="settings.email_domain"  class="form-control"  />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Admin Email
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="text" wire:model.lazy="settings.admin_email"  class="form-control"  />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Create Staff Email
+                    </label>
+                    <div class="col-sm-4">
+                        <select wire:model.lazy="settings.create_staff_email"class="form-control">
+                            @foreach (['true', 'false'] as $option)
+                                <option value="{{$option}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Create Staff Account
+                    </label>
+                    <div class="col-sm-4">
+                        <select wire:model.lazy="settings.create_staff_account"class="form-control">
+                            @foreach (['true', 'false'] as $option)
+                                <option value="{{$option}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Send Notification
+                    </label>
+                    <div class="col-sm-4">
+                        <select wire:model.lazy="settings.send_notification"class="form-control">
+                            @foreach (['true', 'false'] as $option)
+                                <option value="{{$option}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                        Send Reminders
+                    </label>
+                    <div class="col-sm-4">
+                        <select wire:model.lazy="settings.send_reminder"class="form-control">
+                            @foreach (['true', 'false'] as $option)
+                                <option value="{{$option}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
 </div>
+
+
+
 
 

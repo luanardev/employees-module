@@ -3,7 +3,7 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Http\Livewire\Livewire;
 use Luanardev\Modules\Employees\Entities\Document;
-use Luanardev\Modules\Employees\Entities\DocumentType;
+use Luanardev\Modules\HRSettings\Entities\DocumentType;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Storage;

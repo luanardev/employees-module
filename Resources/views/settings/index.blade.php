@@ -6,7 +6,7 @@
 	
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h4 class="m-0">Settings</h4>
+				<h4 class="m-0">General Settings</h4>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -17,23 +17,8 @@
 		</div>
 	</div>
 
-	<div class="content">
-		
-		<div class="card">
-			<div class="card-header">
-				
-                <div class="float-right">
-                    <a href="{{route('settings.index')}}" class="btn btn-sm btn-outline-primary" >
-                        <i class="fas fa-sync-alt"></i>
-                        Refresh
-                    </a>
-                    
-                </div>
-			</div>
-			<div class="card-body">
-				<livewire:employees::settings />
-			</div>
-		</div>
+	<div class="content">		
+		<livewire:employees::settings />		
 	</div>
 </div>
 @endsection

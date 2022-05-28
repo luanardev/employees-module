@@ -15,7 +15,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $this->authorize('configure_employees');
+        $this->authorize('configure_staff_module');
 
         return view('employees::settings.index');
     }

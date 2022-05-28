@@ -15,21 +15,21 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Qualification *</label>
                         <input type="text" wire:model.lazy="qualification.name" name="name" class="form-control" placeholder="Enter Qualification Name" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Specialization </label>
                         <input type="text" wire:model.lazy="qualification.specialization" name="specialization" class="form-control" placeholder="Enter Specialization" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
 
                     <div class="form-group">
                         <label class="control-label">Qualification Level *</label>
@@ -42,14 +42,14 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Institution *</label>
                         <input type="text" wire:model.lazy="qualification.institution" name="institution" class="form-control " placeholder="Enter Awarding Institution" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Country *</label>
                         <select wire:model.lazy="qualification.country" name="country" class="form-control select2"  >
@@ -61,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Qualification Year *</label>
                         <input type="year" wire:model.lazy="qualification.year" name="year"   class="form-control" placeholder="Enter Year" />

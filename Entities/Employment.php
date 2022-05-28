@@ -10,6 +10,11 @@ use Luanardev\Modules\Institution\Entities\Branch;
 use Luanardev\Modules\Institution\Entities\Campus;
 use Luanardev\Modules\Institution\Entities\Department;
 use Luanardev\Modules\Institution\Entities\Section;
+use Luanardev\Modules\HRSettings\Entities\Position;
+use Luanardev\Modules\HRSettings\Entities\JobGrade;
+use Luanardev\Modules\HRSettings\Entities\JobType;
+use Luanardev\Modules\HRSettings\Entities\JobCategory;
+use Luanardev\Modules\HRSettings\Entities\JobStatus;
 use Luanardev\Modules\Employees\Concerns\HasProgress;
 use Luanardev\Modules\Employees\Concerns\WithQuietUpdate;
 use Luanardev\Modules\Employees\Concerns\WithEmploymentHelper;
@@ -19,7 +24,7 @@ use Luanardev\Modules\Employees\Events\Termination;
 use Luanardev\Modules\Employees\Events\Retirement;
 use Luanardev\Modules\Employees\Events\Confirmation;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
-use EmployeeSettings;
+use StaffConfig;
 
 class Employment extends Model
 {
@@ -36,14 +41,14 @@ class Employment extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employment';
+    protected $table = 'hrm_staff_employment';
 
 	/**
      * The primary key associated with the model.
      *
      * @var string
      */
-	protected $primaryKey = 'employee_id';
+	protected $primaryKey = 'staff_id';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -56,8 +61,8 @@ class Employment extends Model
      * @var array
      */
     protected $fillable = [
-        'employee_id', 'designation_id', 'branch_id', 'campus_id', 'department_id', 'section_id',
-        'employment_type', 'employee_category', 'employment_status','grade', 'notch', 'start_date', 'end_date', 'appointed', 'confirmed',  'confirm_date'
+        'staff_id', 'position_id', 'grade_id', 'branch_id', 'campus_id', 'department_id', 'section_id',
+        'type_id', 'category_id', 'status_id','scale', 'notch', 'start_date', 'end_date', 'appointed', 'confirmed',  'confirm_date'
     ];
 
     /**
@@ -92,17 +97,25 @@ class Employment extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function staff()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function designation()
+    public function position()
     {
-        return $this->belongsTo(Designation::class, 'designation_id');
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function grade()
+    {
+        return $this->belongsTo(JobGrade::class, 'grade_id');
     }
 
     /**
@@ -142,7 +155,7 @@ class Employment extends Model
      */
     public function category()
     {
-        return $this->belongsTo(EmployeeCategory::class, 'employee_category');
+        return $this->belongsTo(JobCategory::class, 'category_id');
     }
 
     /**
@@ -150,7 +163,7 @@ class Employment extends Model
      */
     public function type()
     {
-        return $this->belongsTo(EmploymentType::class, 'employment_type');
+        return $this->belongsTo(JobType::class, 'type_id');
     }
 
     /**
@@ -158,7 +171,27 @@ class Employment extends Model
      */
     public function status()
     {
-        return $this->belongsTo(EmploymentStatus::class, 'employment_status');
+        return $this->belongsTo(JobStatus::class, 'status_id');
+    }
+
+     /**
+     * Set employment status
+     * @param mixed $status
+     * @return self
+     */
+    public function setGrade($grade)
+    {
+        if(is_string($status)){
+            $grade = JobGrade::findKey($grade);
+            $this->setAttribute('grade_id', $grade);
+        }
+        elseif(is_numeric($grade)){
+            $this->setAttribute('grade_id', $grade);
+        }
+        elseif($grade instanceof JobGrade){
+            $this->setAttribute('grade_id', $grade->getKey());
+        }
+        return $this;
     }
 
     /**
@@ -169,14 +202,14 @@ class Employment extends Model
     public function setStatus($status)
     {
         if(is_string($status)){
-            $status = EmploymentStatus::findKey($status);
-            $this->setAttribute('employment_status', $status);
+            $status = JobStatus::findKey($status);
+            $this->setAttribute('status_id', $status);
         }
         elseif(is_numeric($status)){
-            $this->setAttribute('employment_status', $status);
+            $this->setAttribute('status_id', $status);
         }
-        elseif($status instanceof EmploymentStatus){
-            $this->setAttribute('employment_status', $status->getKey());
+        elseif($status instanceof JobStatus){
+            $this->setAttribute('status_id', $status->getKey());
         }
         return $this;
     }
@@ -189,14 +222,14 @@ class Employment extends Model
     public function setType($type)
     {
         if(is_string($type)){
-            $type = EmploymentType::findKey($type);
-            $this->setAttribute('employment_type', $type);
+            $type = JobType::findKey($type);
+            $this->setAttribute('type_id', $type);
         }
         elseif(is_numeric($type)){
-            $this->setAttribute('employment_type', $type);
+            $this->setAttribute('type_id', $type);
         }
-        elseif($type instanceof EmploymentType){
-            $this->setAttribute('employment_type', $type->getKey());
+        elseif($type instanceof JobType){
+            $this->setAttribute('type_id', $type->getKey());
         }
         return $this;
     }
@@ -209,20 +242,41 @@ class Employment extends Model
     public function setCategory($category)
     {
         if(is_string($category)){
-            $category = EmployeeCategory::findKey($category);
-            $this->setAttribute('employee_category', $category);
+            $category = JobCategory::findKey($category);
+            $this->setAttribute('category_id', $category);
         }
         elseif(is_numeric($category)){
-            $this->setAttribute('employee_category', $category);
+            $this->setAttribute('category_id', $category);
         }
-        elseif($category instanceof EmployeeCategory){
-            $this->setAttribute('employee_category', $category->getKey());
+        elseif($category instanceof JobCategory){
+            $this->setAttribute('category_id', $category->getKey());
         }
         return $this;
     }
 
     /**
-     * Check employee status
+     * Check staff grade
+     *
+     * @param mixed $status
+     * @return boolean
+     */
+    public function isGrade($grade)
+    {
+        if(is_string($grade)){
+            $grade = JobGrade::findKey($grade);
+            return ($this->grade_id == $grade )? true:false;
+        }
+        elseif(is_numeric($grade)){
+            return ($this->grade_id == $grade )? true:false;
+        }
+        elseif($grade instanceof JobGrade){
+            return ($this->grade_id == $grade->getKey() )? true:false;
+        }
+
+    }
+
+    /**
+     * Check staff status
      *
      * @param mixed $status
      * @return boolean
@@ -230,20 +284,20 @@ class Employment extends Model
     public function isStatus($status)
     {
         if(is_string($status)){
-            $status = EmploymentStatus::findKey($status);
-            return ($this->employment_status == $status )? true:false;
+            $status = JobStatus::findKey($status);
+            return ($this->status_id == $status )? true:false;
         }
         elseif(is_numeric($status)){
-            return ($this->employment_status == $status )? true:false;
+            return ($this->status_id == $status )? true:false;
         }
-        elseif($status instanceof EmploymentStatus){
-            return ($this->employment_status == $status->getKey() )? true:false;
+        elseif($status instanceof JobStatus){
+            return ($this->status_id == $status->getKey() )? true:false;
         }
 
     }
 
     /**
-     * Check employee type
+     * Check staff type
      *
      * @param mixed $type
      * @return boolean
@@ -251,19 +305,19 @@ class Employment extends Model
     public function isType($type)
     {
         if(is_string($type)){
-            $type = EmploymentType::findKey($type);
-            return ($this->employment_type == $type )? true:false;
+            $type = JobType::findKey($type);
+            return ($this->type_id == $type )? true:false;
         }
         elseif(is_numeric($type)){
-            return ($this->employment_type == $type )? true:false;
+            return ($this->type_id == $type )? true:false;
         }
-        elseif($type instanceof EmploymentType){
-            return ($this->employment_type == $type->getKey() )? true:false;
+        elseif($type instanceof JobType){
+            return ($this->type_id == $type->getKey() )? true:false;
         }
     }
 
     /**
-     * Check employee category
+     * Check staff category
      *
      * @param mixed $category
      * @return boolean
@@ -271,14 +325,14 @@ class Employment extends Model
     public function isCategory($category)
     {
         if(is_string($category)){
-            $category = EmployeeCategory::findKey($category);
-            return ($this->employee_category == $category )? true:false;
+            $category = JobCategory::findKey($category);
+            return ($this->category_id == $category )? true:false;
         }
         elseif(is_numeric($category)){
-            return ($this->employee_category == $category )? true:false;
+            return ($this->category_id == $category )? true:false;
         }
-        elseif($category instanceof EmployeeCategory){
-            return ($this->employee_category == $category->getKey() )? true:false;
+        elseif($category instanceof JobCategory){
+            return ($this->category_id == $category->getKey() )? true:false;
         }
     }
 
@@ -289,8 +343,8 @@ class Employment extends Model
      */
     protected function retirementDate()
     {
-        $retirementAge = (int)EmployeeSettings::get('retirement_age');
-        return Carbon::createFromDate($this->employee->date_of_birth)
+        $retirementAge = (int)StaffConfig::get('retirement_age');
+        return Carbon::createFromDate($this->staff->date_of_birth)
                 ->addYears($retirementAge);
     }
 
@@ -301,7 +355,7 @@ class Employment extends Model
      */
     protected function probationEndDate()
     {
-        $probationPeriod = (int)EmployeeSettings::get('probation_period');
+        $probationPeriod = (int)StaffConfig::get('probation_period');
         return Carbon::createFromDate($this->start_date)
                 ->addYears($probationPeriod);
     }
@@ -358,17 +412,19 @@ class Employment extends Model
     /**
      * Set Employment Post
      *
-     * @param Designation $designation
-     * @param string $grade
+     * @param Position $position
+     * @param JobGrade $grade
+     * @param mixed $scale
      * @param mixed $notch
      * @param mixed $startdate
      * @param mixed $enddate
      * @return self
      */
-    public function setPosition(Designation $designation, $grade, $notch, $startdate=null, $enddate=null)
+    public function setPosition(Position $position, JobGrade $grade, $scale, $notch, $startdate=null, $enddate=null)
     {
-        $this->setAttribute('designation_id', $designation->id);
-        $this->setAttribute('grade', $grade);
+        $this->setAttribute('position_id', $position->id);
+        $this->setAttribute('grade_id', $grade->id);
+        $this->setAttribute('scale', $scale);
         $this->setAttribute('notch', $notch);
         if(!empty($startdate)){
             $this->setAttribute('start_date', $startdate);
@@ -422,14 +478,14 @@ class Employment extends Model
         }else{
             $confirmDate = Carbon::createFromDate($confirmDate);
         }
-        $status = EmploymentStatus::findKey('Serving');
-        $this->setAttribute('employment_status', $status);
+        $status = JobStatus::findKey('Serving');
+        $this->setAttribute('status_id', $status);
         $this->setAttribute('confirm_date', $confirmDate);
         $this->setConfirmed(true);
         $this->updateTenure();
         $this->saveQuietly();
 
-        Confirmation::dispatch($this->employee);
+        Confirmation::dispatch($this->staff);
 
     }
 
@@ -447,44 +503,48 @@ class Employment extends Model
         $previous->activate();
 
         $this->setPosition(
-            $previous->designation, $previous->grade, $previous->notch,
-            $previous->start_date, $previous->end_date
+            $previous->position, 
+            $previous->grade, 
+            $previous->scale,
+            $previous->notch,
+            $previous->start_date, 
+            $previous->end_date
         );
 
         $this->setAppointed(false);
         $this->saveQuietly();
 
-        Dismissal::dispatch($this->employee);
+        Dismissal::dispatch($this->staff);
     }
 
     /**
-     * Retire employee from work
+     * Retire staff from work
      * @return void
      */
     public function retire()
     {
-        $status = EmploymentStatus::findKey('Retired');
-        $this->setAttribute('employment_status', $status);
+        $status = JobStatus::findKey('Retired');
+        $this->setAttribute('status_id', $status);
         $this->setAppointed(false);
         $this->saveQuietly();
         $this->quitCareer();
 
-        Retirement::dispatch($this->employee);
+        Retirement::dispatch($this->staff);
     }
 
     /**
-     * Terminate employee contract
+     * Terminate staff contract
      * @return void
      */
     public function terminate()
     {
-		$status = EmploymentStatus::findKey('Terminated');
-        $this->setAttribute('employment_status', $status);
+		$status = JobStatus::findKey('Terminated');
+        $this->setAttribute('status_id', $status);
         $this->setAppointed(false);
         $this->saveQuietly();
         $this->quitCareer();
 
-        Termination::dispatch($this->employee);
+        Termination::dispatch($this->staff);
     }
 
     /**
@@ -494,8 +554,8 @@ class Employment extends Model
      */
     public function shouldQuit()
     {
-        $statuses = EmploymentStatus::getQuitingStatus();
-        return in_array($this->employment_status, $statuses)? true:false;
+        $statuses = JobStatus::getQuitingStatus();
+        return in_array($this->status_id, $statuses)? true:false;
 
     }
 
@@ -506,21 +566,21 @@ class Employment extends Model
      */
     public function shouldResume()
     {
-        $statuses = EmploymentStatus::getResumingStatus();
-        return in_array($this->employment_status, $statuses)? true:false;
+        $statuses = JobStatus::getResumingStatus();
+        return in_array($this->status_id, $statuses)? true:false;
 
     }
 
     /**
-     * End employee career
+     * End staff career
      *
      * @return void
      */
     public function quitCareer()
     {
-        $this->employee->deactivate();
+        $this->staff->deactivate();
 
-        $this->employee->disableAccount();
+        $this->staff->disableAccount();
 
         foreach($this->progress()->get() as $progress){
             $progress->deactivate();
@@ -534,9 +594,9 @@ class Employment extends Model
      */
     public function resumeCareer()
     {
-        $this->employee->activate();
+        $this->staff->activate();
 
-        $this->employee->enableAccount();
+        $this->staff->enableAccount();
 
         $previousPost = $this->progress()->latest()->first();
         if(isset($previousPost)){

@@ -6,7 +6,7 @@
             <h3 class="card-title text-bold">Qualifications</h3>
         </div>
         <div class="card-body">
-            @livewire('employees::staff.staff-qualification-table', ['employee' => $employee])
+            @livewire('employees::staff.staff-qualification-table', ['staff' => $staff])
         </div>
     </div>
     @endif

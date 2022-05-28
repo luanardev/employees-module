@@ -16,7 +16,7 @@ trait WithUserAccount
         $password = Str::upper(Str::random(8));
 
         $user = new User();
-        $user->id = $this->employee_id;
+        $user->id = $this->staff_id;
         $user->name = $this->name() ;
         $user->email = $this->emailAddress();
         $user->campus = $this->campus->code;
@@ -28,7 +28,7 @@ trait WithUserAccount
 
     public function disableAccount()
     {
-        $user = User::find($this->employee_id);
+        $user = User::find($this->staff_id);
         if(!empty($user)){
             $user->deactivate();
         }
@@ -37,7 +37,7 @@ trait WithUserAccount
 
     public function enableAccount()
     {
-        $user = User::find($this->employee_id);
+        $user = User::find($this->staff_id);
         if(!empty($user)){
             $user->activate();
         }

@@ -1,7 +1,7 @@
 <?php
 
 namespace Luanardev\Modules\Employees\Events;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Entities\Employment;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -18,9 +18,9 @@ class EmploymentCreated
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * Create a new event instance.
@@ -30,7 +30,7 @@ class EmploymentCreated
     public function __construct(Employment $employment)
     {
         $this->employment = $employment;
-        $this->employee = $employment->employee;
+        $this->staff = $employment->staff;
     }
 
 }

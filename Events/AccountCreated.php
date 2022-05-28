@@ -1,7 +1,7 @@
 <?php
 
 namespace Luanardev\Modules\Employees\Events;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,9 +11,9 @@ class AccountCreated
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * @var string
@@ -22,13 +22,13 @@ class AccountCreated
 
     /**
      * Create a new event instance.
-     * @param Employee $employee
+     * @param Staff $staff
      * @param string $password
      * @return void
      */
-    public function __construct(Employee $employee, string $password)
+    public function __construct(Staff $staff, string $password)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
         $this->password = $password;
     }
 

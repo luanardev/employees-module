@@ -14,13 +14,13 @@ class Spouse extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_spouse';
+    protected $table = 'hrm_staff_spouse';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id','employee_id', 'title', 'firstname', 'lastname', 'middlename', 'date_of_birth', 'gender',
+        'id','staff_id', 'title', 'firstname', 'lastname', 'middlename', 'date_of_birth', 'gender',
         'contact_address', 'phone1', 'phone2', 'residence_country', 'nationality', 'home_country',
         'home_village', 'home_authority', 'home_district'
     ];
@@ -46,7 +46,7 @@ class Spouse extends Model
      */
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'staff_id');
     }
 
     /**

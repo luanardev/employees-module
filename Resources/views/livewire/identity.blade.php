@@ -9,29 +9,38 @@
             <div class="card-body">
                 <x-adminlte-validation />
 
-                <form wire:submit.prevent="save">
+                <form wire:submit.prevent="saveAvatar">
 
-                    <div class="col-lg-6 col-md-3 col-sm-12">
+                    <div class="col-lg-8 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label class="control-label">Passport Photo *</label>
-                            <input type="file" wire:model="photo" class="form-control-file"  />
+                            <label class="control-label">Profile Picture *</label>
+                            <div class="input-group">
+                                <input type="file" wire:model="avatar" class="form-control" >
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-check-circle"></i> Upload
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-3 col-sm-12">
+                </form>
+
+                <form wire:submit.prevent="saveSignature">
+
+                    <div class="col-lg-8 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Signature *</label>
-                            <input type="file" wire:model="signature" class="form-control-file" >
+                            <div class="input-group">
+                                <input type="file" wire:model="signature" class="form-control" >
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-check-circle"></i> Upload
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    @can('create_staff_card')
-                        <div class="col-lg-6 col-md-3 col-sm-12">
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                <i class="fas fa-check-circle"></i> Upload
-                            </button>
-                        </div>
-                    @endcan
+
                     
+                   
                 </form>
 
             </div>
@@ -39,7 +48,7 @@
             <div class="card-footer">
                 <div class="float-right">
                     @can('print_staff_card')
-                        <a href="{{route('identity.card', $employee->id)}}" target="_blank" class="btn btn-success">
+                        <a href="{{route('identity.card', $staff->id)}}" target="_blank" class="btn btn-success">
                             <i class="fas fa-id-card"></i> Get ID Card
                         </a>
                     @endcan
@@ -55,8 +64,8 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <h6>Passport Photo</h6>
 
-                        @if(!is_null($employee->avatar))
-                            <img src="{{ asset("storage/".$employee->avatar) }}"class="img-fluid img-thumbnail"  />
+                        @if(!is_null($staff->avatar))
+                            <img src="{{ asset("storage/".$staff->avatar) }}"class="img-fluid img-thumbnail"  />
                         @else
                             <img src="{{ asset('assets/images/default.png') }}" class="img-fluid img-thumbnail"  />
                         @endif
@@ -65,8 +74,8 @@
 
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <h6>Signature (350px by 230px)</h6>
-                        @if(!is_null($employee->signature))
-                            <img src="{{ asset("storage/".$employee->signature) }}" class="img-fluid img-circle"  />
+                        @if(!is_null($staff->signature))
+                            <img src="{{ asset("storage/".$staff->signature) }}" class="img-fluid img-circle"  />
                         @endif
 
                     </div>

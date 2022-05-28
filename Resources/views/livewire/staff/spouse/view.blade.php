@@ -10,12 +10,12 @@
                     </button>
         
                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="actions">
-                        @if($employee->hasSpouse())
+                        @if($staff->hasSpouse())
 
-                            <a href="#" wire:click.prevent="edit({{$employee->spouse->id}})" class="dropdown-item">
+                            <a href="#" wire:click.prevent="edit({{$staff->spouse->id}})" class="dropdown-item">
                                 <i class="fas fa-edit"></i> Update
                             </a>
-                            <a href="#" wire:click.prevent="delete({{$employee->spouse->id}})" class="dropdown-item">
+                            <a href="#" wire:click.prevent="delete({{$staff->spouse->id}})" class="dropdown-item">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                             
@@ -40,34 +40,34 @@
                     <li class="list-group-item">
                         <span class="text-bold">Spouse Name</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->fullname()}}</span>
+                            <span class="text-bold">{{$staff->spouse->fullname()}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Gender</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->gender}}</span>
+                            <span class="text-bold">{{$staff->spouse->gender}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Date of Birth</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->dateOfBirth()}}</span>
+                            <span class="text-bold">{{$staff->spouse->dateOfBirth()}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Contact Address</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->contact_address}}</span>
+                            <span class="text-bold">{{$staff->spouse->contact_address}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Phone Number</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->phone1}}</span><br/>
-                            @isset($employee->spouse->phone2)
-                            <span class="text-bold">{{$employee->spouse->phone2}}</span>
+                            <span class="text-bold">{{$staff->spouse->phone1}}</span><br/>
+                            @isset($staff->spouse->phone2)
+                            <span class="text-bold">{{$staff->spouse->phone2}}</span>
                             @endisset
                         </a>
                     </li>
@@ -75,7 +75,7 @@
                     <li class="list-group-item">
                         <span class="text-bold">Residence Country</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->spouse->residence_country}}</span>
+                            <span class="text-bold">{{$staff->spouse->residence_country}}</span>
                         </a>
                     </li>
 
@@ -83,7 +83,7 @@
                         <span class="text-bold">Home Village</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->spouse->home_village }}
+                                {{ $staff->spouse->home_village }}
                             </span>
                         </a>
                     </li>
@@ -92,7 +92,7 @@
                         <span class="text-bold">Home T/A</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->spouse->home_authority }}
+                                {{ $staff->spouse->home_authority }}
                             </span>
                         </a>
                     </li>
@@ -101,7 +101,7 @@
                         <span class="text-bold">Home District</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->spouse->home_district }}
+                                {{ $staff->spouse->home_district }}
                             </span>
                         </a>
                     </li>

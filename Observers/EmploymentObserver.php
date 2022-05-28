@@ -2,9 +2,9 @@
 
 namespace Luanardev\Modules\Employees\Observers;
 
+use Luanardev\Modules\HRSettings\Entities\ProgressType;
 use Luanardev\Modules\Employees\Entities\Employment;
 use Luanardev\Modules\Employees\Entities\Progress;
-use Luanardev\Modules\Employees\Entities\ProgressType;
 use Luanardev\Modules\Employees\Events\EmploymentCreated;
 
 class EmploymentObserver
@@ -50,7 +50,7 @@ class EmploymentObserver
             $this->updateProgress($employment);
         }
 
-        if($employment->wasChanged('employment_status') ){
+        if($employment->wasChanged('status_id') ){
             if($employment->isProbation()){
                 $employment->setProbation();
             }
@@ -61,7 +61,7 @@ class EmploymentObserver
                 $employment->resumeCareer();
             }
         }
-        elseif($employment->wasChanged('employment_type') ){
+        elseif($employment->wasChanged('type_id') ){
             if($employment->isPermanent()){
                 $previousPost = $employment->getPreviousProgress();
                 if($previousPost->isNotPermanent()){
@@ -83,10 +83,11 @@ class EmploymentObserver
     {
         $progressType = $this->progressType($employment);
         $progress = new Progress;
-        $progress->employee()->associate($employment->employee);
-        $progress->designation()->associate($employment->designation);
+        $progress->staff()->associate($employment->staff);
+        $progress->position()->associate($employment->position);
         $progress->progressType()->associate($progressType);
-        $progress->grade = $employment->grade;
+        $progress->grade()->associate($employment->grade);
+        $progress->scale = $employment->scale;
         $progress->notch = $employment->notch;
         $progress->start_date = $employment->start_date;
         $progress->end_date = $employment->end_date;
@@ -102,8 +103,9 @@ class EmploymentObserver
     protected function updateProgress(Employment $employment)
     {
         $progress = $employment->progress()->latest()->first();
-        $progress->designation_id = $employment->designation_id;
-        $progress->grade = $employment->grade;
+        $progress->position_id = $employment->position_id;
+        $progress->grade_id = $employment->grade_id;
+        $progress->scale = $employment->scale;
         $progress->notch = $employment->notch;
         $progress->start_date = $employment->start_date;
         $progress->end_date = $employment->end_date;
@@ -111,15 +113,16 @@ class EmploymentObserver
     }
 
     /**
-     * Check whether designation or grade or scale has changed
+     * Check whether position or grade or scale has changed
      *
      * @param Employment $employment
      * @return boolean
      */
     protected function shouldUpdateProgress(Employment $employment)
     {
-        if($employment->wasChanged('designation_id') ||
-            $employment->wasChanged('grade') ||
+        if($employment->wasChanged('position_id') ||
+            $employment->wasChanged('grade_id') ||
+            $employment->wasChanged('scale') ||
             $employment->wasChanged('notch') ||
             $employment->wasChanged('start_date') ){
             return true;

@@ -12,7 +12,7 @@ class ProcessRetirement extends Command
      *
      * @var string
      */
-    protected $signature = 'employee:retire';
+    protected $signature = 'staff:retire';
 
     /**
      * The console command description.

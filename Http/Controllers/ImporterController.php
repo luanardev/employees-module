@@ -17,7 +17,7 @@ class ImporterController extends Controller
      */
     public function template()
     {
-        $this->authorize('create_employee');
+        $this->authorize('create_staff');
 
         return Storage::download("temp/Staff_Record_Template.xlsx");
     }
@@ -28,9 +28,9 @@ class ImporterController extends Controller
      */
     public function import()
     {
-        $this->authorize('create_employee');
+        $this->authorize('create_staff');
         
-        return view('employees::employee.import');
+        return view('employees::staff.import');
     }
 
 }

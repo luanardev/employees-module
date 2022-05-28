@@ -3,8 +3,8 @@
 namespace Luanardev\Modules\Employees\Observers;
 
 use Luanardev\Modules\Employees\Entities\Progress;
-use Luanardev\Modules\Employees\Entities\ProgressType;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\HRSettings\Entities\ProgressType;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Events\Promotion;
 
 
@@ -19,8 +19,8 @@ class ProgressObserver
      */
     public function creating(Progress $progress)
     {
-        $employee = $progress->employee;
-        $previousPost = $this->getPreviousPost($employee);
+        $staff = $progress->staff;
+        $previousPost = $this->getPreviousPost($staff);
         if(!empty($previousPost)){
             $previousPost->deactivate();
         }
@@ -35,11 +35,12 @@ class ProgressObserver
      */
     public function created(Progress $progress)
     {
-        $employment = $progress->employee->employment;
+        $employment = $progress->staff->employment;
 
         $employment->setPosition(
-            $progress->designation,
+            $progress->position,
             $progress->grade,
+            $progress->scale,
             $progress->notch,
             $progress->start_date,
             $progress->end_date
@@ -74,11 +75,11 @@ class ProgressObserver
      */
     public function deleted(Progress $progress)
     {
-        $employee = $progress->employee;
+        $staff = $progress->staff;
 
-        $employment = $employee->employment;
+        $employment = $staff->employment;
 
-        $previousPost = $this->getPreviousPost($employee);
+        $previousPost = $this->getPreviousPost($staff);
         if(empty($previousPost)){
             return false;
         }
@@ -91,8 +92,9 @@ class ProgressObserver
             ->setServing();
 
         $employment->setPosition(
-            $previousPost->designation,
+            $previousPost->position,
             $previousPost->grade,
+            $previousPost->scale,
             $previousPost->notch,
             $previousPost->start_date,
             $previousPost->end_date
@@ -123,13 +125,13 @@ class ProgressObserver
     /**
      * Get previous employment record
      *
-     * @param Employee $employee
+     * @param Staff $staff
      * @return Progress
      */
-    protected function getPreviousPost(Employee $employee)
+    protected function getPreviousPost(Staff $staff)
     {
         $type = self::getProgressType('Appointment');
-        return $employee->progress()
+        return $staff->progress()
             ->where('progress_type', '<>', $type)
             ->latest()
             ->first();

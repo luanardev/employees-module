@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\AccountCreated;
 use Luanardev\Modules\Employees\Notifications\UserAccountNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendUserAccountNotification implements ShouldQueue
 {
@@ -18,11 +18,11 @@ class SendUserAccountNotification implements ShouldQueue
      */
     public function handle(AccountCreated $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
         
         if($shouldNotify){
-            Notification::route('mail',$event->employee->personal_email)->notify(
-                new UserAccountNotification($event->employee, $event->password)
+            Notification::route('mail',$event->staff->personal_email)->notify(
+                new UserAccountNotification($event->staff, $event->password)
             );
         }
     }

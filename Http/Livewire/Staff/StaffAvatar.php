@@ -1,7 +1,7 @@
 <?php
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Livewire\WithFileUploads;
 
 class StaffAvatar extends StaffProfile
@@ -33,10 +33,10 @@ class StaffAvatar extends StaffProfile
         $this->validate([
             'photo' => 'required|image|max:10240',
         ]);
-        $staffNo = $this->employee->id;
+        $staffNo = $this->staff->id;
         $path = $this->photo->storePublicly("employees/{$staffNo}",'public');
-        $this->employee->avatar = $path;
-        $this->employee->save();
+        $this->staff->avatar = $path;
+        $this->staff->save();
         $this->browseMode()->emitRefresh()->toastr('Photo saved');
     }
 

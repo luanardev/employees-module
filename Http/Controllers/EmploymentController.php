@@ -5,22 +5,55 @@ namespace Luanardev\Modules\Employees\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class EmploymentController extends Controller
 {
 
     /**
      * Show the form for creating a new resource.
-     * @param Employee $employee
      * @return Renderable
      */
-    public function contract(Employee $employee)
+    public function promotion()
     {
         $this->authorize('update_employment');
 
-        return view('employees::employee.contract')->with([
-            'employee' => $employee
+        return view('employees::employment.promotion');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function confirmation()
+    {
+        $this->authorize('update_employment');
+
+        return view('employees::employment.confirmation');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function contractRenewal()
+    {
+        $this->authorize('update_employment');
+
+        return view('employees::employment.renewcontract');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @param Staff $staff
+     * @return Renderable
+     */
+    public function contract(Staff $staff)
+    {
+        $this->authorize('update_employment');
+
+        return view('employees::employment.contract')->with([
+            'staff' => $staff
         ]);
     }
 
@@ -29,21 +62,21 @@ class EmploymentController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function promote(Employee $employee)
+    public function promote(Staff $staff)
     {
         $this->authorize('update_employment');
 
-        if($employee->employment->isAppointed()){
-            return back()->with('error', "{$employee->name()} is serving an appointment");
+        if($staff->employment->isAppointed()){
+            return back()->with('error', "{$staff->name()} is serving an appointment");
         }
-        elseif($employee->employment->isNotPermanent()){
-            return back()->with('error', "{$employee->name()} is not Permanent Staff ");
+        elseif($staff->employment->isNotPermanent()){
+            return back()->with('error', "{$staff->name()} is not Permanent Staff ");
         }
-        elseif($employee->employment->isNotConfirmed()){
-            return back()->with('error', "{$employee->name()} is not Confirmed Staff ");
+        elseif($staff->employment->isNotConfirmed()){
+            return back()->with('error', "{$staff->name()} is not Confirmed Staff ");
         }
         else{
-            return view('employees::employee.promote')->with(['employee' => $employee]);
+            return view('employees::employment.promote')->with(['staff' => $staff]);
         }
 
     }
@@ -52,11 +85,11 @@ class EmploymentController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function confirm(Employee $employee)
+    public function confirm(Staff $staff)
     {  
         $this->authorize('update_employment');
 
-        return view('employees::employee.confirm')->with(['employee' => $employee]);
+        return view('employees::employment.confirm')->with(['staff' => $staff]);
     }
 
 

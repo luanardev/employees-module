@@ -19,7 +19,7 @@ class ProbationNotification extends Notification implements ShouldQueue
      */
     public function shouldInterrupt($notifiable)
     {
-        return $this->employee->isNotActive();
+        return $this->staff->isNotActive();
     }
 
     /**

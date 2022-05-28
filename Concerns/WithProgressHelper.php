@@ -14,9 +14,33 @@ trait WithProgressHelper
 	/**
      * @return string
      */
-    public function getDesignation()
+    public function getPosition()
     {
-        return $this->designation->name;
+        return $this->position->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGrade()
+    {
+        return isset($this->grade->name) ? $this->grade->name : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScale()
+    {
+        return isset($this->scale) ?  "{$this->scale} - {$this->notch}" : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGradeScale()
+    {
+        return isset($this->grade->name) ?  " {$this->grade->name} ( {$this->scale} - {$this->notch} )" : null;
     }
 
     /**
@@ -126,15 +150,7 @@ trait WithProgressHelper
     }
 
     /**
-     * @return string
-     */
-    public function gradeScale()
-    {
-        return isset($this->grade) ? "{$this->grade} - {$this->notch}" : null;
-    }
-
-    /**
-     * Employee joining date
+     * Staff joining date
      *
      * @return string
      */
@@ -145,7 +161,7 @@ trait WithProgressHelper
     }
 
     /**
-     * Employee exit date
+     * Staff exit date
      *
      * @return string
      */

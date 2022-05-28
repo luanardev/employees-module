@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class ConfirmationNotification extends Notification implements ShouldQueue
 {
@@ -14,18 +14,18 @@ class ConfirmationNotification extends Notification implements ShouldQueue
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * Create a new notification instance.
-     * @param Employee $employee
+     * @param Staff $staff
      * @return void
      */
-    public function __construct(Employee $employee)
+    public function __construct(Staff $staff)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
     }
 
     /**
@@ -36,7 +36,7 @@ class ConfirmationNotification extends Notification implements ShouldQueue
      */
     public function shouldInterrupt($notifiable)
     {
-        return $this->employee->isNotActive();
+        return $this->staff->isNotActive();
     }
 
     /**
@@ -60,7 +60,7 @@ class ConfirmationNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                 ->markdown('employees::emails.confirmation', [
-                    'employee' => $this->employee
+                    'staff' => $this->staff
                 ]);
     }
 

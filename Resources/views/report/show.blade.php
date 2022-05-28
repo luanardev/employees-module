@@ -6,12 +6,12 @@
 	
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h4 class="m-0">Employees Report</h4>
+				<h4 class="m-0">Staff Report</h4>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
 					<li class="breadcrumb-item"><a href="{{ url('employees') }}">Home</a></li>
-					<li class="breadcrumb-item"><a href="{{ route('employee.index') }}">Employees</a></li>
+					<li class="breadcrumb-item"><a href="{{ route('staff.index') }}">Staff</a></li>
 					<li class="breadcrumb-item active">Reports</li>
 				</ol>
 			</div>

@@ -2,15 +2,15 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Experience;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class StaffExperience extends StaffProfile
 {
     public Experience $experience;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->experience = new Experience();
     }
 
@@ -44,7 +44,7 @@ class StaffExperience extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->experience->employee()->associate($this->employee);
+        $this->experience->staff()->associate($this->staff);
         $this->experience->save();
         $this->browseMode()->emitRefresh()->toastr('Experience saved');
     }

@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class UserAccount extends Mailable
 {
@@ -14,9 +14,9 @@ class UserAccount extends Mailable
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * @var string
@@ -25,13 +25,13 @@ class UserAccount extends Mailable
 
     /**
      * Create a new event instance.
-     * @param Employee $employee
+     * @param Staff $staff
      * @param string $password
      * @return void
      */
-    public function __construct(Employee $employee, string $password)
+    public function __construct(Staff $staff, string $password)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
         $this->password = $password;
     }
 

@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
 use Luanardev\Modules\Employees\Events\EmploymentCreated;
 use App\Models\User;
-use EmployeeSettings;
+use StaffConfig;
 
 
 class CreateUserAccount implements ShouldQueue
@@ -18,10 +18,10 @@ class CreateUserAccount implements ShouldQueue
      */
     public function handle(EmploymentCreated $event)
     {
-        $shouldCreate = (bool)EmployeeSettings::get('create_staff_account');
+        $shouldCreate = (bool)StaffConfig::get('create_staff_account');
 
         if($shouldCreate){
-            $event->employee->createAccount();
+            $event->staff->createAccount();
         }
 
     }

@@ -9,7 +9,7 @@
                 <button type="submit" class="btn btn-sm btn-success">
                     <i class="fas fa-check-circle"></i> Save
                 </button>
-                <a href="{{route('employee.template')}}" class="btn btn-sm btn-primary">
+                <a href="{{route('staff.template')}}" class="btn btn-sm btn-primary">
                     <i class="nav-icon fas fa-file-excel"></i> Get Template
                 </a>
             </div>

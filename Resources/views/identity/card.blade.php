@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>{{$employee->name()}}</title>
+        <title>{{$staff->name()}}</title>
         <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
         <style>
@@ -34,7 +34,6 @@
             .id-card .id-card-body{
                 display: block;
             }
-
             .id-card .id-card-body .id-card-info{
                 position: absolute;
                 font-family: Helvetica;
@@ -77,7 +76,7 @@
                 display: block;
                 float: left;
             }
-
+            
             .id-card .id-card-body .id-card-logo img{
                 position: absolute;
                 width: 70px;
@@ -146,10 +145,10 @@
     <body>
         <main>
             @php  
-                $company_name = OrgSettings::get('company_name'); 
-                $company_logo = OrgSettings::get('company_logo'); 
-                $company_address = OrgSettings::get('company_address'); 
-                $company_telephone = OrgSettings::get('company_telephone'); 
+                $company_name = Institution::get('company_name'); 
+                $company_logo = Institution::get('company_logo'); 
+                $company_address = Institution::get('company_address'); 
+                $company_telephone = Institution::get('company_telephone'); 
             @endphp
 
             <div class="id-card">
@@ -172,13 +171,13 @@
                         <div class="col-sm float-left mb-0 py-0">
                             <div class="id-card-info">
                                 <div class="id-card-info-header">
-                                    <p class="mb-1 py-1 display-h4"><strong>{{strtoupper($employee->campus->name)}}</strong></p>
+                                    <p class="mb-1 py-1 display-h4"><strong>{{strtoupper($staff->campus->name)}}</strong></p>
 
                                     <p class="mb-0 id-label">
                                         STAFF ID
                                     </p>
                                     <p class="mb-2 id-number">
-                                        {{$employee->id}}
+                                        {{$staff->id}}
                                     </p>
                                     
                                 </div>
@@ -187,19 +186,19 @@
                                     
                                     <p class="mb-0">
                                         <span class="field-label">First Name : </span>
-                                        <span class="text-bold field-value">{{$employee->firstname}}</span>
+                                        <span class="text-bold field-value">{{$staff->firstname}}</span>
                                     </p>
                                     <p class="mb-0">
                                         <span class="field-label">Last Name : </span>
-                                        <span class="text-bold field-value">{{$employee->lastname}}</span>
+                                        <span class="text-bold field-value">{{$staff->lastname}}</span>
                                     </p>
                                     <p class="mb-0">
                                         <span class="field-label">Department : </span>
-                                        <span class="text-bold field-value">{{$employee->division()}}</span>
+                                        <span class="text-bold field-value">{{$staff->getDivision()}}</span>
                                     </p>
                                     <p class="mb-0">
                                         <span class="field-label">Expire Date : </span>
-                                        <span class="text-bold field-value">{{$employee->endDate()}}</span>
+                                        <span class="text-bold field-value">{{$staff->endDate()}}</span>
                                     </p>
                                 </div>
                             </div>
@@ -207,7 +206,7 @@
                         </div>
                         <div class="col-sm float-right mb-0 py-0">
                             <div class="id-card-photo">
-                                <img src="{{ asset("storage/".$employee->avatar) }}" class="img-fluid" />
+                                <img src="{{ asset("storage/".$staff->avatar) }}" class="img-fluid" />
                             </div>        
                         </div>
                     </div>
@@ -217,7 +216,7 @@
 
                 <div class="id-card-footer">
                     <div class="id-card-barcode">
-                        {!!DNS1D::getBarcodeHTML("{$employee->id}", 'S25')!!}
+                        {!!DNS1D::getBarcodeHTML("{$staff->id}", 'S25')!!}
                     </div>
 
                     <div class="id-card-signature">
@@ -225,14 +224,14 @@
                         <div class="authority">
                             <p> 
                                 Registrar's Signature <br/>
-                                <img src="{{ asset("storage/".$employee->signature) }}" />
+                                <img src="{{ asset("storage/".$staff->signature) }}" />
                             </p>
                         </div>
                     
                         <div class="holder">
                             <p> 
                                 Holders's Signature <br/>
-                                <img src="{{ asset("storage/".$employee->signature) }}" />
+                                <img src="{{ asset("storage/".$staff->signature) }}" />
                             </p>
                         </div>
                     </div>

@@ -13,21 +13,21 @@ class Experience extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_experience';
+    protected $table = 'hrm_staff_experience';
+
+    /**
+     * The primary key associated with the model.
+     *
+     * @var string
+     */
+	protected $primaryKey = 'id';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id','employee_id', 'job_position', 'employer_name', 'employer_address', 'employer_phone', 'start_date', 'end_date'
+        'staff_id', 'job_position', 'employer_name', 'employer_address', 'employer_phone', 'start_date', 'end_date'
     ];
-
-    /**
-     * The attributes that are guarded.
-     *
-     * @var array
-     */
-    protected $guarded = ['created_at', 'updated_at'];
 
     /**
      * The attributes that should be cast.
@@ -39,13 +39,12 @@ class Experience extends Model
         'end_date' => 'date:Y-m-d'
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function staff()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 namespace Luanardev\Modules\Employees\Events;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,18 +11,18 @@ class Termination
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * Create a new event instance.
-     * @param Employee $employee
+     * @param Staff $staff
      * @return void
      */
-    public function __construct(Employee $employee)
+    public function __construct(Staff $staff)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
     }
 
 }

@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="content">
-        <livewire:employees::identity :employee=$employee />
+        <livewire:employees::staff-identity :staff=$staff />
 	</div>
 </div>
 

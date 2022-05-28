@@ -2,9 +2,9 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
+use Luanardev\Modules\HRSettings\Entities\QualificationLevel;
 use Luanardev\Modules\Employees\Entities\Qualification;
-use Luanardev\Modules\Employees\Entities\QualificationLevel;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class QualificationWizard extends LivewireUI
@@ -46,13 +46,13 @@ class QualificationWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->qualification->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->qualification->staff()->associate($staff);
         $this->qualification->save();
         $this->resetFields();
         $this->toastr('Qualification saved');
@@ -78,9 +78,9 @@ class QualificationWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $qualifications = $employee->qualifications()->get();
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $qualifications = $staff->qualifications()->get();
             $this->with('qualification', $qualifications);
         }else{
             $this->create();

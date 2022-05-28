@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\ProfileCreated;
 use Luanardev\Modules\Employees\Notifications\WelcomeNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendWelcomeNotification implements ShouldQueue
 {
@@ -18,11 +18,11 @@ class SendWelcomeNotification implements ShouldQueue
      */
     public function handle(ProfileCreated $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
         
         if($shouldNotify){
-            Notification::route('mail',$event->employee->personal_email)->notify(
-                new WelcomeNotification($event->employee)
+            Notification::route('mail',$event->staff->personal_email)->notify(
+                new WelcomeNotification($event->staff)
             );
         }
     }

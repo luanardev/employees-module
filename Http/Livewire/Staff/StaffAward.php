@@ -2,15 +2,18 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Award;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
+use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class StaffAward extends StaffProfile
 {
+	use WithEnums;
+	
     public Award $award;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->award = new Award();
 
     }
@@ -47,7 +50,7 @@ class StaffAward extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->award->employee()->associate($this->employee);
+        $this->award->staff()->associate($this->staff);
         $this->award->save();
         $this->browseMode()->emitRefresh()->toastr('Award saved');
     }

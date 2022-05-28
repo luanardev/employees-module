@@ -11,11 +11,14 @@
                     </button>
 
                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="actions">
-                        @can('employees.employee.update')
-                            <a href="#" wire:click.prevent="edit({{$employee->id}})" class="dropdown-item">
+                        @can('update_staff')
+                            <a href="#" wire:click.prevent="edit({{$staff->id}})" class="dropdown-item">
                                 <i class="fas fa-edit"></i> Update
                             </a> 
                         @endcan
+                        <a href="{{route('identity.show', $staff)}}"  class="dropdown-item">
+                            <i class="fas fa-id-card"></i> ID Card
+                        </a>
                                              
                     </div>
                 </div>
@@ -27,7 +30,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="box-profile">
                     <div class="text-center">
-                        @livewire('employees::staff.staff-avatar', ['employee' => $employee])
+                        @livewire('employees::staff.staff-avatar', ['staff' => $staff])
                     </div>
                 </div>
 
@@ -38,60 +41,60 @@
                     <li class="list-group-item">
                         <span class="text-bold"><i class="fas fa-id-card"></i> Employee ID </span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->id}}</span>
+                            <span class="text-bold">{{$staff->id}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold"><i class="fas fa-id-card"></i> National ID </span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->national_id}}</span>
+                            <span class="text-bold">{{$staff->national_id}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold"><i class="fas fa-user"></i> Gender </span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->gender}}</span>
+                            <span class="text-bold">{{$staff->gender}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold"><i class="fas fa-ring"></i> Marital Status </span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->marital_status}}</span>
+                            <span class="text-bold">{{$staff->marital_status}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold"><i class="fas fa-calendar"></i> Date of Birth</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->dateOfBirth()}}</span>
+                            <span class="text-bold">{{$staff->dateOfBirth()}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold"> <i class="fas fa-address-book"></i> Contact Address</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->contact_address}}</span>
+                            <span class="text-bold">{{$staff->contact_address}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold"> <i class="fas fa-envelope"></i> Offical Email</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->official_email}}</span>
+                            <span class="text-bold">{{$staff->official_email}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold"> <i class="fas fa-envelope"></i> Personal Email</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->personal_email}}</span>
+                            <span class="text-bold">{{$staff->personal_email}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold"> <i class="fas fa-mobile"></i> Phone Number</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->phone1}}</span><br/>
-                            @isset($employee->phone2)
-                            <span class="text-bold">{{$employee->phone2}}</span><br/>
+                            <span class="text-bold">{{$staff->phone1}}</span><br/>
+                            @isset($staff->phone2)
+                            <span class="text-bold">{{$staff->phone2}}</span><br/>
                             @endisset
                         </a>
                     </li>
@@ -100,7 +103,7 @@
                         <span class="text-bold"><i class="fas fa-flag"></i> Residence Country</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->residence_country }}
+                                {{ $staff->residence_country }}
                             </span>
                         </a>
                     </li>
@@ -109,7 +112,7 @@
                         <span class="text-bold"><i class="fas fa-map-marker-alt"></i> Home Village</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->home_village }}
+                                {{ $staff->home_village }}
                             </span>
                         </a>
                     </li>
@@ -118,7 +121,7 @@
                         <span class="text-bold"><i class="fas fa-map-marker-alt"></i> Home T/A</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->home_authority }}
+                                {{ $staff->home_authority }}
                             </span>
                         </a>
                     </li>
@@ -127,7 +130,7 @@
                         <span class="text-bold"><i class="fas fa-map-marker-alt"></i> Home District</span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {{ $employee->home_district }}
+                                {{ $staff->home_district }}
                             </span>
                         </a>
                     </li>
@@ -136,7 +139,7 @@
                         <span class="text-bold"><i class="fas fa-graduation-cap"></i> Qualification </span>
                         <a class="float-right">
                             <span class="text-bold">
-                                {!! $employee->highestQf() !!}
+                                {!! $staff->highestQf() !!}
                             </span>
                         </a>
                     </li>

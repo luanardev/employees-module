@@ -15,9 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('employees::home');
-    
+       return view('employees::home');     
     }
 
 

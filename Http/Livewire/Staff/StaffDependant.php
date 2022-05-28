@@ -2,16 +2,16 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Dependant;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class StaffDependant extends StaffProfile
 {
 
     public Dependant $dependant;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->dependant = new Dependant();
     }
 
@@ -47,7 +47,7 @@ class StaffDependant extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->dependant->employee()->associate($this->employee);
+        $this->dependant->staff()->associate($this->staff);
         $this->dependant->save();
         $this->browseMode()->emitRefresh()->toastr('Dependant saved');
     }

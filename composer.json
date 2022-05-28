@@ -15,7 +15,7 @@
                 "Luanardev\\Modules\\Employees\\Providers\\EmployeesServiceProvider"
             ],
             "aliases": {
-				"EmployeeSettings": "Luanardev\\Modules\\Employees\\Facades\\EmployeeSettings"
+				"StaffConfig": "Luanardev\\Modules\\Employees\\Facades\\StaffConfig"
             }
         }
     },

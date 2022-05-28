@@ -2,7 +2,7 @@
 
 namespace Luanardev\Modules\Employees\Concerns;
 use Illuminate\Support\Carbon;
-use EmployeeSettings;
+use StaffConfig;
 
 trait WithOfficialEmail
 {
@@ -22,7 +22,7 @@ trait WithOfficialEmail
 
     protected function emailDomain()
     {
-        return EmployeeSettings::get('email_domain');
+        return StaffConfig::get('email_domain');
     }
 
     public function suggestEmail($domain)

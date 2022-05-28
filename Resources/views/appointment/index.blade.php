@@ -27,7 +27,7 @@
                     <div class="card-header">
 						<div class="float-right">
 							@can('create_appointment')
-								<a  class="btn btn-sm btn-primary" href="{{route('appointment.search')}}">
+								<a  class="btn btn-sm btn-primary" href="{{route('appointment.add')}}">
 									<i class="fas fa-plus-circle"></i>
 									<span class="d-none d-xs-none d-sm-inline d-md-inline d-lg-inline"> Add Appointment</span>
 								</a>

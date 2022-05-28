@@ -20,25 +20,25 @@
         @if(count($results) > 0)
             <div class="col-md-6">
                 <div class="list-group">
-                    @foreach($results as $employee)
+                    @foreach($results as $staff)
                     
                     <div class="list-group-item">
                         <div class="row">
                             
                             <div class="col-auto">
-                                @if(!is_null($employee->avatar))
-                                    <img src="{{ asset("storage/".$employee->avatar) }}" class="img-fluid" style="max-height: 100px;"/>
+                                @if(!is_null($staff->avatar))
+                                    <img src="{{ asset("storage/".$staff->avatar) }}" class="img-fluid" style="max-height: 100px;"/>
                                 @else
                                     <img src="{{ asset('assets/images/default.png') }}" class="img-fluid"  style="max-height: 100px;"/>
                                 @endif
                             </div>
                             <div class="col px-4">
-                                <a href="{{route($route, $employee)}}" >
+                                <a href="{{route($route, $staff)}}" >
                                     <div>
-                                        <h5>{{$employee->fullname}} ({{$employee->id}})</h5>
-                                        <h6 class="mb-1">{{$employee->designation}}</h6>
-                                        <h6 class="mb-1">{{$employee->campus}}</h6>
-                                        <h6 class="mb-1">{{$employee->appointment}}</h6>
+                                        <h5>{{$staff->fullname}} ({{$staff->id}})</h5>
+                                        <h6 class="mb-1">{{$staff->position}}</h6>
+                                        <h6 class="mb-1">{{$staff->campus}}</h6>
+                                        <h6 class="mb-1">{{$staff->appointment}}</h6>
                                     </div>
                                 </a>
                             </div>                   

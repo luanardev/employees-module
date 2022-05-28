@@ -19,7 +19,7 @@ class RemindProbation extends Command
      *
      * @var string
      */
-    protected $description = 'Send employee probation reminder.';
+    protected $description = 'Send staff probation reminder.';
 
     /**
      * Create a new command instance.

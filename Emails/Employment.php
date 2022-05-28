@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class Employment extends Mailable
 {
@@ -14,18 +14,18 @@ class Employment extends Mailable
 
     /**
      *
-     * @var Employee
+     * @var Staff
      */
-    public Employee $employee;
+    public Staff $staff;
 
     /**
      * Create a new message instance.
-     * @param Employee $employee
+     * @param Staff $staff
      * @return void
      */
-    public function __construct(Employee $employee)
+    public function __construct(Staff $staff)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
     }
 
     /**

@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\Dismissal;
 use Luanardev\Modules\Employees\Notifications\DismissalNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendDismissalNotification implements ShouldQueue
 {
@@ -18,12 +18,12 @@ class SendDismissalNotification implements ShouldQueue
      */
     public function handle(Dismissal $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
 
         if($shouldNotify){
             Notification::send(
-                $event->employee,
-                new DismissalNotification($event->employee)
+                $event->staff,
+                new DismissalNotification($event->staff)
             );
         }
     }

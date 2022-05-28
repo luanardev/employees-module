@@ -3,9 +3,10 @@
 namespace Luanardev\Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Luanardev\Modules\Employees\Entities\Designation;
-use Luanardev\Modules\Employees\Entities\Employee;
-use Luanardev\Modules\Employees\Entities\ProgressType;
+use Luanardev\Modules\HRSettings\Entities\Position;
+use Luanardev\Modules\HRSettings\Entities\JobGrade;
+use Luanardev\Modules\HRSettings\Entities\ProgressType;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Concerns\WithQuietUpdate;
 use Luanardev\Modules\Employees\Concerns\WithProgressHelper;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
@@ -19,12 +20,12 @@ class Progress extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_progress';
+    protected $table = 'hrm_staff_progress';
 
     /**
      * @var array
      */
-    protected $fillable = ['id','employee_id', 'designation_id', 'progress_type', 'grade', 'notch', 'start_date', 'end_date','status'];
+    protected $fillable = ['id','staff_id', 'position_id',  'grade_id', 'progress_type', 'scale', 'notch', 'status', 'start_date', 'end_date'];
 
     /**
      * The attributes that are guarded.
@@ -43,20 +44,28 @@ class Progress extends Model
         'end_date' => 'date:Y-m-d',
     ];
 
-    /**
+     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function designation()
+    public function staff()
     {
-        return $this->belongsTo(Designation::class, 'designation_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function position()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function grade()
+    {
+        return $this->belongsTo(JobGrade::class, 'grade_id');
     }
 
 	/**
@@ -64,7 +73,7 @@ class Progress extends Model
      */
     public function employment()
     {
-        return $this->belongsTo(Employment::class, 'employee_id');
+        return $this->belongsTo(Employment::class, 'staff_id');
     }
 
     /**
@@ -114,32 +123,55 @@ class Progress extends Model
     }
 
     /**
+     * Check staff grade
+     *
+     * @param mixed $status
+     * @return boolean
+     */
+    public function isGrade($grade)
+    {
+        if(is_string($grade)){
+            $grade = JobGrade::findKey($grade);
+            return ($this->grade_id == $grade )? true:false;
+        }
+        elseif(is_numeric($grade)){
+            return ($this->grade_id == $grade )? true:false;
+        }
+        elseif($grade instanceof JobGrade){
+            return ($this->grade_id == $grade->getKey() )? true:false;
+        }
+
+    }
+
+    /**
      * Create Progression
      *
-     * @param Employee $employee
+     * @param Staff $staff
      * @param mixed $progressType
-     * @param mixed $designation
+     * @param mixed $position
      * @param mixed $grade
+     * @param mixed $scale
      * @param mixed $notch
      * @param mixed $startdate
      * @param mixed $enddate
      * @return void
      */
-    public static function make(Employee $employee, $progressType, $designation, $grade, $notch, $startdate, $enddate)
+    public static function make(Staff $staff, $progressType, $position, $grade, $scale, $notch, $startdate, $enddate)
     {
-        if(empty($designation)){
-            $designation = $employee->employment->designation;
+        if(empty($position)){
+            $position = $staff->employment->position;
         }
      
         $progressType = ProgressType::findByName($progressType); 
         
         if($progressType->isIncrement() ){
-            $employment = $employee->employment;
+            $employment = $staff->employment;
             $progress = new self;
             $progress->progressType()->associate($progressType);
-            $progress->employee()->associate($employee);
-            $progress->designation()->associate($designation);
-            $progress->grade = $employment->grade;
+            $progress->staff()->associate($staff);
+            $progress->position()->associate($position);
+            $progress->grade()->associate($employment->grade);
+            $progress->scale = $employment->scale;
             $progress->notch = $notch;
             $progress->start_date = $startdate;
             $progress->end_date =  $employment->end_date;
@@ -149,9 +181,10 @@ class Progress extends Model
             
             $progress = new self;
             $progress->progressType()->associate($progressType);
-            $progress->employee()->associate($employee);
-            $progress->designation()->associate($designation);
-            $progress->grade = $grade;
+            $progress->staff()->associate($staff);
+            $progress->position()->associate($position);
+            $progress->grade()->associate($grade);
+            $progress->scale = $scale;
             $progress->notch = $notch;
             $progress->start_date = $startdate;
             $progress->end_date = $enddate;

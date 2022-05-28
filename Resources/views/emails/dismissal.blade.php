@@ -1,7 +1,7 @@
 @component('mail::message')
-<h2>Dear {{$employee->name()}}</h2>
+<h2>Dear {{$staff->name()}}</h2>
 
-<p>Please be advised that your appointment as {{$employe->employment->getDesignation()}} is terminated effective today.</p>
+<p>Please be advised that your appointment as {{$staff->employment->getPosition()}} is terminated effective today.</p>
 
 {{ config('app.name') }}
 @endcomponent

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Carbon;
 use Luanardev\Modules\Employees\Entities\Employment;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Notifications\RetirementReminder as Reminder;
 
 class RetirementReminder implements ShouldQueue
@@ -26,21 +26,21 @@ class RetirementReminder implements ShouldQueue
         $employments = Employment::getRetiring();
 
         foreach($employments as $employment){
-            $this->notify($employment->employee);
+            $this->notify($employment->staff);
         }
     }
 
     /**
      * Handle notification login
      *
-     * @param Employee $employee
+     * @param Staff $staff
      * @return void
      */
-    protected function notify(Employee $employee)
+    protected function notify(Staff $staff)
     {
-        $reminderDate = Carbon::createFromDate($employee->end_date)->subMonth(); // month before retirement
-        $reminder = new Reminder($employee);
+        $reminderDate = Carbon::createFromDate($staff->end_date)->subMonth(); // month before retirement
+        $reminder = new Reminder($staff);
         $reminder->delay($reminderDate);
-        $employee->notify($reminder);
+        $staff->notify($reminder);
     }
 }

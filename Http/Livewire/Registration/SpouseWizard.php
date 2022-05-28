@@ -3,7 +3,7 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
 use Luanardev\Modules\Employees\Entities\Spouse;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class SpouseWizard extends LivewireUI
@@ -27,12 +27,12 @@ class SpouseWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->spouse->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->spouse->staff()->associate($staff);
         $this->spouse->save();
         $this->toastr('Spouse saved');
     }
@@ -60,9 +60,9 @@ class SpouseWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $this->spouse = $employee->spouse;
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $this->spouse = $staff->spouse;
         }else{
             $this->spouse = new Spouse;
         }

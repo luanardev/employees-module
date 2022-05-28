@@ -2,16 +2,16 @@
 
     @if($browseMode)
     <div class="text-center">
-        @if(!is_null($employee->avatar))
-            <img src="{{ asset("storage/".$employee->avatar) }}" class="profile-user-img img-fluid img-circle"  />
+        @if(!is_null($staff->avatar))
+            <img src="{{ asset("storage/".$staff->avatar) }}" class="profile-user-img img-fluid img-circle"  />
         @else
             <img src="{{ asset('assets/images/default.png') }}" class="profile-user-img img-fluid img-circle"  />
         @endif
         <h3 class="profile-username">
-            {{$employee->fullname()}}
+            {{$staff->fullname()}}
         </h3>
         <h5 class="text-muted">
-            {{$employee->employment->getDesignation()}}
+            {{$staff->employment->getPosition()}}
         </h5>
         @can('update_employee')
             <button class="btn btn-sm btn-primary" wire:click="create()">

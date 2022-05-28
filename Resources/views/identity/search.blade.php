@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="content">
-        @livewire('employees::search', ['route' => 'identity.show'])
+        @livewire('employees::search-staff', ['route' => 'identity.show'])
 	</div>
 </div>
 

@@ -2,10 +2,10 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Entities\Document;
-use Luanardev\Modules\Employees\Entities\DocumentType;
 use Luanardev\Modules\Employees\Enums\WithEnums;
+use Luanardev\Modules\HRSettings\Entities\DocumentType;
 use Livewire\WithFileUploads;
 
 class DocumentWizard extends LivewireUI
@@ -49,17 +49,17 @@ class DocumentWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
 
-        $employee = Employee::find(session()->get('employee'));
-        $path = $this->file->storePublicly("employees/{$employee->id}",'public');
+        $staff = Staff::find(session()->get('staff'));
+        $path = $this->file->storePublicly("employees/{$staff->id}",'public');
 
         $document = new Document;
-        $document->employee()->associate($employee);
+        $document->staff()->associate($staff);
         $document->name = $this->name;
         $document->type = $this->type;
         $document->size = $this->file->getSize();
@@ -88,9 +88,9 @@ class DocumentWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $documents = $employee->documents()->get();
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $documents = $staff->documents()->get();
             $this->with('document', $documents);
         }else{
             $this->create();

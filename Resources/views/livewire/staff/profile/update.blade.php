@@ -18,18 +18,18 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">National ID </label>
-                            <input type="text" wire:model.lazy="employee.national_id" name="national_id" class="form-control" placeholder="Enter National ID" />
+                            <input type="text" wire:model.lazy="staff.national_id" name="national_id" class="form-control" placeholder="Enter National ID" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
 
                         <div class="form-group">
                             <label class="control-label">Title *</label>
-                            <select wire:model.lazy="employee.title" name="title" class="form-control custom-select"  >
+                            <select wire:model.lazy="staff.title" name="title" class="form-control select2"  >
                                 <option value="">--select--</option>
                                 @foreach ($viewBag->get('title') as $case)
                                     <option value="{{$case}}">{{$case}}</option>
@@ -38,38 +38,38 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">First Name *</label>
-                            <input type="text" wire:model.lazy="employee.firstname" name="firstname"class="form-control" placeholder="Enter First Name" />
+                            <input type="text" wire:model.lazy="staff.firstname" name="firstname"class="form-control" placeholder="Enter First Name" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Last Name *</label>
-                            <input type="text" wire:model.lazy="employee.lastname" name="lastname" class="form-control " placeholder="Enter Last Name" />
+                            <input type="text" wire:model.lazy="staff.lastname" name="lastname" class="form-control " placeholder="Enter Last Name" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Middle Name</label>
-                            <input type="text" wire:model.lazy="employee.middlename" name="middlename" class="form-control " placeholder="Enter Middle Name">
+                            <input type="text" wire:model.lazy="staff.middlename" name="middlename" class="form-control " placeholder="Enter Middle Name">
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Date OF Birth *</label>
-                            <input type="date" wire:model.lazy="employee.date_of_birth" name="date_of_birth"   class="form-control" />
+                            <input type="date" wire:model.lazy="staff.date_of_birth" name="date_of_birth"   class="form-control" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Gender *</label>
-                            <select wire:model.lazy="employee.gender" name="gender" class="form-control custom-select"  >
+                            <select wire:model.lazy="staff.gender" name="gender" class="form-control select2"  >
                                 <option value="">--select--</option>
                                 @foreach ($viewBag->get('gender') as $case)
                                     <option value="{{$case}}">{{$case}}</option>
@@ -78,10 +78,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Marital Status *</label>
-                            <select wire:model.lazy="employee.marital_status" name="marital_status" class="form-control custom-select"  >
+                            <select wire:model.lazy="staff.marital_status" name="marital_status" class="form-control select2"  >
                                 <option value="">--select--</option>
                                 @foreach ($viewBag->get('maritalStatus') as $case)
                                     <option value="{{$case}}">{{$case}}</option>
@@ -90,50 +90,50 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Contact Address *</label>
-                            <input type="text" wire:model.lazy="employee.contact_address" name="contact_address" class="form-control " placeholder="Enter Contact Address" />
+                            <input type="text" wire:model.lazy="staff.contact_address" name="contact_address" class="form-control " placeholder="Enter Contact Address" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Personal Email *</label>
-                            <input type="email" wire:model.lazy="employee.personal_email" name="personal_email" class="form-control " placeholder="Enter Personal Email" />
+                            <input type="email" wire:model.lazy="staff.personal_email" name="personal_email" class="form-control " placeholder="Enter Personal Email" />
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Phone One *</label>
-                            <input type="text" wire:model.lazy="employee.phone1" name="phone_number1" class="form-control" placeholder="Enter Phone One"/>
+                            <input type="text" wire:model.lazy="staff.phone1" name="phone_number1" class="form-control" placeholder="Enter Phone One"/>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Phone Two</label>
-                            <input type="text" wire:model.lazy="employee.phone2" name="phone_number2" class="form-control " placeholder="Enter Phone Two">
+                            <input type="text" wire:model.lazy="staff.phone2" name="phone_number2" class="form-control " placeholder="Enter Phone Two">
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Home Village</label>
-                            <input type="text" wire:model.lazy="employee.home_village" name="home_village" class="form-control " placeholder="Enter Home Village">
+                            <input type="text" wire:model.lazy="staff.home_village" name="home_village" class="form-control " placeholder="Enter Home Village">
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Home T/A</label>
-                            <input type="text" wire:model.lazy="employee.home_authority" name="home_authority" class="form-control " placeholder="Enter Home TA">
+                            <input type="text" wire:model.lazy="staff.home_authority" name="home_authority" class="form-control " placeholder="Enter Home TA">
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Home District</label>
-                            <select wire:model.lazy="employee.home_district" name="home_district" class="form-control select2" >
+                            <select wire:model.lazy="staff.home_district" name="home_district" class="form-control select2" >
                                 <option value="">--select--</option>
                                 @foreach ($viewBag->get('district') as $case)
                                     <option value="{{$case}}">{{$case}}</option>
@@ -142,10 +142,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Residence Country</label>
-                            <select wire:model.lazy="employee.residence_country" name="home_country" class="form-control select2"  >
+                            <select wire:model.lazy="staff.residence_country" name="home_country" class="form-control select2"  >
                                 <option value="">--select--</option>
                                 @foreach ($viewBag->get('country') as $country)
                                     <option value="{{$country}}">{{$country}}</option>

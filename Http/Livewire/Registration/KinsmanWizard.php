@@ -3,7 +3,7 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
 use Luanardev\Modules\Employees\Entities\Kinsman;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class KinsmanWizard extends LivewireUI
@@ -16,7 +16,6 @@ class KinsmanWizard extends LivewireUI
     {
         parent::__construct();
         $this->recovery();
-
     }
 
     public function render()
@@ -25,15 +24,32 @@ class KinsmanWizard extends LivewireUI
         return view('employees::livewire.registration.kinsman.create');
     }
 
+    public function copySpouse()
+    {
+        if(!session()->exists('staff')){
+            return false;
+        }
+
+        $staff = Staff::find(session()->get('staff'));
+        if($staff->hasSpouse()){
+            $this->kinsman->fill($staff->spouse()->getAttributes());
+        }
+    }
+
+    public function resetSpouse()
+    {
+        $this->reset(['kinsman']);
+    }
+
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->kinsman->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->kinsman->staff()->associate($staff);
         $this->kinsman->save();
         $this->toastr('Next of Kin saved');
     }
@@ -57,9 +73,9 @@ class KinsmanWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $this->kinsman = $employee->kinsman;
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $this->kinsman = $staff->kinsman;
         }else{
             $this->kinsman = new Kinsman();
         }

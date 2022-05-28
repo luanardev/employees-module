@@ -2,10 +2,9 @@
 
 namespace Luanardev\Modules\Employees\Reports;
 
-use Luanardev\Modules\Employees\Entities\Employee;
-use Luanardev\Modules\Employees\Entities\Designation;
+use Luanardev\Modules\Employees\Entities\Position;
 use Luanardev\Modules\Employees\Entities\QualificationType;
-use Luanardev\Modules\Employees\Entities\Grade;
+use Luanardev\Modules\Employees\Entities\JobScale;
 use Luanardev\Modules\Institution\Entities\Campus;
 use Luanardev\Modules\Institution\Entities\Department;
 use Luanardev\Modules\Institution\Entities\Section;;

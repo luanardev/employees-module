@@ -4,7 +4,7 @@ namespace Luanardev\Modules\Employees\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Luanardev\Modules\Employees\Settings\EmployeeSettings;
+use Luanardev\Modules\Employees\Settings\StaffConfig;
 
 class EmployeesServiceProvider extends ServiceProvider
 {
@@ -45,8 +45,8 @@ class EmployeesServiceProvider extends ServiceProvider
         $this->app->register(CommandServiceProvider::class);
         $this->app->register(ScheduleServiceProvider::class);
 
-        $this->app->bind('employeesettings',function(){
-            return new EmployeeSettings();
+        $this->app->bind('staffconfig',function(){
+            return new StaffConfig();
         });
     }
 

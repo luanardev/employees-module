@@ -1,7 +1,7 @@
 <?php
 namespace Luanardev\Modules\Employees\Concerns;
 use Luanardev\Modules\Employees\Entities\Progress;
-use Luanardev\Modules\Employees\Entities\ProgressType;
+use Luanardev\Modules\HRSettings\Entities\ProgressType;
 
 trait HasProgress
 {
@@ -10,7 +10,7 @@ trait HasProgress
      */
     public function progress()
     {
-        return $this->hasMany(Progress::class, 'employee_id');
+        return $this->hasMany(Progress::class, 'staff_id');
     }
 
     /**

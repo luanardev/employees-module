@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use PDF;
 
 class IdentityController extends Controller
@@ -27,28 +27,28 @@ class IdentityController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function show(Employee $employee)
+    public function show(Staff $staff)
     {
         $this->authorize('view_staff_card');
 
         return view('employees::identity.show')->with([
-            'employee' => $employee
+            'staff' => $staff
         ]);
     }
 
     /**
      * Show the specified resource.
-     * @param Employee $employee
+     * @param Staff $staff
      * @return Renderable
      */
-    public function card(Employee $employee)
+    public function card(Staff $staff)
     {
         $this->authorize('print_staff_card');
         
-        $name = Str::kebab($employee->name());
+        $name = Str::kebab($staff->name());
 
         $pdf = PDF::loadView('employees::identity.card', [
-            'employee' => $employee
+            'staff' => $staff
         ]);
 
         $paper = array(0,0,324,204);

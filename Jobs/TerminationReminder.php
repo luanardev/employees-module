@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Carbon;
 use Luanardev\Modules\Employees\Entities\Employment;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Notifications\TerminationReminder as Reminder;
 
 
@@ -32,21 +32,21 @@ class TerminationReminder implements ShouldQueue
 
         // send reminders to employees
         foreach($employments as $employment){
-            $this->notify($employment->employee);
+            $this->notify($employment->staff);
         }
     }
 
     /**
      * Handle notification login
      *
-     * @param Employee $employee
+     * @param Staff $staff
      * @return void
      */
-    protected function notify(Employee $employee)
+    protected function notify(Staff $staff)
     {
-        $reminderDate = Carbon::createFromDate($employee->end_date)->subMonth(); // month before termination
-        $reminder = new Reminder($employee);
+        $reminderDate = Carbon::createFromDate($staff->end_date)->subMonth(); // month before termination
+        $reminder = new Reminder($staff);
         $reminder->delay($reminderDate);
-        $employee->notify($reminder);
+        $staff->notify($reminder);
     }
 }

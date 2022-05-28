@@ -14,30 +14,30 @@
                                 <i class="fas fa-edit"></i> Update
                             </a>
                             
-                            @if($employee->employment->isPermanent() && $employee->employment->isNotConfirmed() )
-                                <a href="{{route('employee.confirm', $employee) }}"  class="dropdown-item">
+                            @if($staff->employment->isPermanent() && $staff->employment->isNotConfirmed() )
+                                <a href="{{route('staff.confirm', $staff) }}"  class="dropdown-item">
                                     <i class="fas fa-check"></i> Confirm
                                 </a>
                             @endif
-                            @if($employee->employment->isPermanent() && $employee->employment->isAppointed())
+                            @if($staff->employment->isPermanent() && $staff->employment->isAppointed())
                                 <a href="#" wire:click.prevent="dismiss()" class="dropdown-item">
                                     <i class="fas fa-ban"></i> Dismiss
                                 </a>
                             @endif
-                            @if($employee->employment->isNotPermanent() && $employee->employment->isServing())
+                            @if($staff->employment->isNotPermanent() && $staff->employment->isServing())
                                 <a href="#" wire:click.prevent="terminate()" class="dropdown-item">
                                     <i class="fas fa-ban"></i> Terminate
                                 </a>
                             @endif
-                            @if($employee->employment->isPermanent() && $employee->employment->isConfirmed() && $employee->employment->isNotAppointed() )
-                                <a href="{{route('employee.promote', $employee) }}"  class="dropdown-item">
+                            @if($staff->employment->isPermanent() && $staff->employment->isConfirmed() && $staff->employment->isNotAppointed() )
+                                <a href="{{route('staff.promote', $staff) }}"  class="dropdown-item">
                                     <i class="fas fa-check"></i> Promote
                                 </a>
                             @endif
                         @endcan
                         @can('create_employment')
-                            @if($employee->employment->isNotPermanent() && $employee->employment->isNotServing())
-                                <a href="{{route('employee.contract', $employee)}}" class="dropdown-item">
+                            @if($staff->employment->isNotPermanent() && $staff->employment->isNotServing())
+                                <a href="{{route('staff.contract', $staff)}}" class="dropdown-item">
                                     <i class="fas fa-plus-circle"></i> New Contract
                                 </a>
                             @endif
@@ -53,45 +53,45 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <span class="text-bold">Designation</span>
+                        <span class="text-bold">Position</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getDesignation() }}</span>
+                            <span class="text-bold">{{$staff->employment->getPosition() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Grade</span>
                         <a class="float-right">
-                            <span class="text-bold">{{ $employee->employment->gradeScale() }}</span>
+                            <span class="text-bold">{{ $staff->employment->getGradeScale() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Department</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getDepartment() }}</span>
+                            <span class="text-bold">{{$staff->employment->getDepartment() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Section</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getSection() }}</span>
+                            <span class="text-bold">{{$staff->employment->getSection() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Campus</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getCampus() }}</span>
+                            <span class="text-bold">{{$staff->employment->getCampus() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <span class="text-bold">Employment Type</span>
+                        <span class="text-bold">Job Type</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getType() }}</span>
+                            <span class="text-bold">{{$staff->employment->getType() }}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <span class="text-bold">Employee Category</span>
+                        <span class="text-bold">Job Category</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->getCategory() }}</span>
+                            <span class="text-bold">{{$staff->employment->getCategory() }}</span>
                         </a>
                     </li>
 
@@ -102,7 +102,7 @@
                     <li class="list-group-item">
                         <span class="text-bold">Starting Date</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->startDate()}}</span>
+                            <span class="text-bold">{{$staff->employment->startDate()}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -110,41 +110,41 @@
                             Ending Date
                         </span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->endDate()}}</span>
+                            <span class="text-bold">{{$staff->employment->endDate()}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Period of Service</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->elapsedPeriod()}}</span>
+                            <span class="text-bold">{{$staff->employment->elapsedPeriod()}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Remaining Period</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->employment->remainingPeriod()}}</span>
+                            <span class="text-bold">{{$staff->employment->remainingPeriod()}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
-                        <span class="text-bold">Employment Status</span>
+                        <span class="text-bold">Job Status</span>
                         <div class="float-right">
-                            <span class="text-bold">{!! $employee->employment->statusBadge() !!}</span>
+                            <span class="text-bold">{!! $staff->employment->statusBadge() !!}</span>
                         </div>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Confirmed</span>
                         <div class="float-right">
-                            <span class="text-bold">{!! $employee->employment->confirmationBadge() !!}</span>
+                            <span class="text-bold">{!! $staff->employment->confirmationBadge() !!}</span>
                         </div>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Appointed</span>
                         <div class="float-right">
-                            <span class="text-bold">{!! $employee->employment->appointmentBadge() !!}</span>
+                            <span class="text-bold">{!! $staff->employment->appointmentBadge() !!}</span>
                         </div>
                     </li>
 

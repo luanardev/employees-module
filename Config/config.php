@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Employees',
+    'name' => 'Staff Management',
 ];

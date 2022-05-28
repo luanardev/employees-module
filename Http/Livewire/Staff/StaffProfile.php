@@ -2,18 +2,18 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\LivewireUI\LivewireUI;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class StaffProfile extends LivewireUI
 {
     use WithEnums;
 
-    public Employee $employee;
+    public Staff $staff;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        $this->employee = $employee;
+        $this->staff = $staff;
     }
 
     public function render()
@@ -35,7 +35,7 @@ class StaffProfile extends LivewireUI
     public function save()
     {
         $this->validate();
-        $this->employee->save();
+        $this->staff->save();
         $this->browseMode()->emitRefresh()->toastr('Profile updated');
     }
 
@@ -51,22 +51,22 @@ class StaffProfile extends LivewireUI
     public function rules()
     {
         return [
-            'employee.national_id' => 'nullable|string',
-            'employee.title' => 'required|string',
-            'employee.firstname' => 'required|string',
-            'employee.lastname' => 'required|string',
-            'employee.middlename' => 'nullable|string',
-            'employee.marital_status' => 'required|string',
-            'employee.date_of_birth' => 'required|date',
-            'employee.gender' => 'required|string',
-            'employee.contact_address' => 'required|string',
-            'employee.personal_email' => 'required|email',
-            'employee.phone1' => 'required|string',
-            'employee.phone2' => 'nullable|string',
-            'employee.home_village' => 'required|string',
-            'employee.home_authority' => 'required|string',
-            'employee.home_district' => 'required|string',
-            'employee.residence_country' => 'required|string',
+            'staff.national_id' => 'nullable|string',
+            'staff.title' => 'required|string',
+            'staff.firstname' => 'required|string',
+            'staff.lastname' => 'required|string',
+            'staff.middlename' => 'nullable|string',
+            'staff.marital_status' => 'required|string',
+            'staff.date_of_birth' => 'required|date',
+            'staff.gender' => 'required|string',
+            'staff.contact_address' => 'required|string',
+            'staff.personal_email' => 'required|email',
+            'staff.phone1' => 'required|string',
+            'staff.phone2' => 'nullable|string',
+            'staff.home_village' => 'required|string',
+            'staff.home_authority' => 'required|string',
+            'staff.home_district' => 'required|string',
+            'staff.residence_country' => 'required|string',
         ];
     }
 

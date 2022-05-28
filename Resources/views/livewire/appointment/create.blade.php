@@ -3,7 +3,7 @@
     <form wire:submit.prevent="save">
         <div class="card-header">
             <h3 class="card-title text-bold"> 
-				<a href="{{route('employee.show', $employee)}}">{{$employee->fullname()}}</a>
+				<a href="{{route('staff.show', $staff)}}">{{$staff->fullname()}}</a>
 			</h3>
             <div class="float-right">
                 <button type="submit" class="btn btn-sm btn-primary"> 
@@ -21,16 +21,16 @@
 
             <div class="row">
                 
-                <div class="col-md-9">
+                <div class="col-md-8">
 
                     <div class="form-group row">
                         <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
-                            Designation *
+                            Position *
                         </label>
                         <div class="col-sm-6">
-                            <select wire:model="designation" class="form-control select2" >
+                            <select wire:model="position" class="form-control select2" >
                                 <option value="">--select--</option>
-                                @foreach ($viewBag->get('designations') as $id => $name)
+                                @foreach ($viewBag->get('positions') as $id => $name)
                                     <option value="{{$id}}" >{{$name}}</option>
                                 @endforeach
                             </select>
@@ -44,7 +44,21 @@
                         <div class="col-sm-6">
                             <select wire:model="grade" class="form-control select2" >
                                 <option value="">--select--</option>
-                                @foreach ($viewBag->get('grades') as $name)
+                                @foreach ($viewBag->get('grades') as $id => $name)
+                                    <option value="{{$id}}" >{{$name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="text-lg-right col-sm-3 col-form-label col-form-label-sm ">
+                            Scale *
+                        </label>
+                        <div class="col-sm-6">
+                            <select wire:model="scale" class="form-control select2" >
+                                <option value="">--select--</option>
+                                @foreach ($viewBag->get('scales') as $name)
                                     <option value="{{$name}}" >{{$name}}</option>
                                 @endforeach
                             </select>
@@ -58,7 +72,7 @@
                         <div class="col-sm-6">
                             <select wire:model="notch" class="form-control select2" >
                                 <option value="">--select--</option>
-                                @foreach ($this->notches($grade) as $notch)
+                                @foreach ($this->notches($scale) as $notch)
                                     <option value="{{$notch}}" >{{$notch}}</option>
                                 @endforeach
                             </select>

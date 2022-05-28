@@ -5,26 +5,26 @@ namespace Luanardev\Modules\Employees\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Luanardev\Modules\Employees\Entities\Employee;
-use Luanardev\Modules\Employees\Reports\EmployeeFilter;
-use Luanardev\Modules\Employees\Reports\EmployeeReport;
+use Luanardev\Modules\Employees\Entities\Staff;
+use Luanardev\Modules\Employees\Reports\StaffFilter;
+use Luanardev\Modules\Employees\Reports\StaffReport;
 
 class ReportController extends Controller
 {
     public function create()
     {
-        $this->authorize('view_employee_report');
+        $this->authorize('view_staff_report');
 
-        $filter = new EmployeeFilter;
+        $filter = new StaffFilter;
         
         return $filter->render('employees::report.create');
     }
 
     public function result(Request $request)
     {
-        $this->authorize('view_employee_report');
+        $this->authorize('view_staff_report');
         
-        $report = new EmployeeReport;
+        $report = new StaffReport;
         $report->setFilterBy( $request->get('filterby') );
         $report->setGroupBy( $request->get('groupby') );
         $report->setSortBy( $request->get('sortby') );

@@ -2,16 +2,16 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Kinsman;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class StaffKinsman extends StaffProfile
 {
 
     public Kinsman $kinsman;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->kinsman = new Kinsman();
     }
 
@@ -47,7 +47,7 @@ class StaffKinsman extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->kinsman->employee()->associate($this->employee);
+        $this->kinsman->staff()->associate($this->staff);
         $this->kinsman->save();
         $this->browseMode()->emitRefresh()->toastr('Next of Kin saved');
     }

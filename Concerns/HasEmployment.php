@@ -9,9 +9,9 @@ trait HasEmployment
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function designation()
+    public function position()
     {
-        return $this->employment->designation();
+        return $this->employment->position();
     }
 
     /**
@@ -55,7 +55,15 @@ trait HasEmployment
     }
 
     /**
-     * Check employee status
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function grade()
+    {
+        return $this->employment->grade();
+    }
+
+    /**
+     * Check staff status
      *
      * @param string $status
      * @return boolean
@@ -66,7 +74,7 @@ trait HasEmployment
     }
 
     /**
-     * Check employee type
+     * Check staff type
      *
      * @param string $type
      * @return boolean
@@ -77,7 +85,7 @@ trait HasEmployment
     }
 
     /**
-     * Check employee category
+     * Check staff category
      *
      * @param string $category
      * @return boolean
@@ -88,7 +96,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is permanent
+     * Check whether staff is permanent
      * @return bool
      */
     public function isPermanent()
@@ -97,7 +105,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is not permanent
+     * Check whether staff is not permanent
      * @return bool
      */
     public function isNotPermanent()
@@ -106,7 +114,7 @@ trait HasEmployment
     }
 
     /**
-      * Check wether employee is appointed
+      * Check wether staff is appointed
      * @return bool
      */
     public function isAppointed()
@@ -115,7 +123,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is not appointed
+     * Check whether staff is not appointed
      * @return bool
      */
     public function isNotAppointed()
@@ -124,7 +132,7 @@ trait HasEmployment
     }
 
     /**
-      * Check wether employee is appointed
+      * Check wether staff is appointed
      * @return bool
      */
     public function isConfirmed()
@@ -133,7 +141,7 @@ trait HasEmployment
     }
 
     /**
-      * Check wether employee is confirmed
+      * Check wether staff is confirmed
      * @return bool
      */
     public function isNotConfirmed()
@@ -142,7 +150,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is academic
+     * Check whether staff is academic
      * @return bool
      */
     public function isAcademic()
@@ -151,7 +159,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is administrative
+     * Check whether staff is administrative
      * @return bool
      */
     public function isAdministrative()
@@ -160,7 +168,7 @@ trait HasEmployment
     }
 
     /**
-     * Check whether employee is support
+     * Check whether staff is support
      * @return bool
      */
     public function isSupport()
@@ -171,9 +179,9 @@ trait HasEmployment
 	/**
      * @return string
      */
-    public function getDesignation()
+    public function getPosition()
     {
-        return $this->designation->name;
+        return $this->position->name;
     }
 
     /**
@@ -209,6 +217,15 @@ trait HasEmployment
     }
 
     /**
+     *
+     * @return string
+     */
+    public function getGrade()
+    {
+        return $this->grade->name;
+    }
+
+    /**
      * @return string
      */
     public function getCategory()
@@ -237,7 +254,7 @@ trait HasEmployment
      *
      * @return void
      */
-    public function division()
+    public function getDivision()
     {
         if($this->isAcademic()){
             return isset($this->employment->department_id) ?  $this->getDepartment(): null;
@@ -275,17 +292,7 @@ trait HasEmployment
     }
 
     /**
-     *Grade Notch
-     *
-     * @return string
-     */
-    public function gradeScale()
-    {
-        return "Grade {$this->employment->grade} - {$this->employment->notch}";
-    }
-
-    /**
-     * Employee joining date
+     * Staff joining date
      *
      * @return string
      */
@@ -296,7 +303,7 @@ trait HasEmployment
     }
 
     /**
-     * Employee confirmed date
+     * Staff confirmed date
      *
      * @return string
      */
@@ -307,7 +314,7 @@ trait HasEmployment
     }
 
     /**
-     * Employee exit date
+     * Staff exit date
      *
      * @return string
      */

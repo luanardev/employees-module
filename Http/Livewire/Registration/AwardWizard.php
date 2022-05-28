@@ -3,7 +3,7 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
 use Luanardev\Modules\Employees\Entities\Award;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class AwardWizard extends LivewireUI
@@ -45,13 +45,13 @@ class AwardWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->award->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->award->staff()->associate($staff);
         $this->award->save();
         $this->resetFields();
         $this->toastr('Award saved');
@@ -75,9 +75,9 @@ class AwardWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $awards = $employee->awards()->get();
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $awards = $staff->awards()->get();
             $this->with('award', $awards);
         }else{
             $this->create();

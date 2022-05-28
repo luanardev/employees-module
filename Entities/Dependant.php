@@ -12,19 +12,19 @@ class Dependant extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_dependants';
+    protected $table = 'hrm_staff_dependants';
 
     /**
-     * @var array
-     */
-    protected $fillable = ['id','employee_id', 'title', 'firstname', 'lastname', 'date_of_birth', 'gender', 'relation'];
-
-    /**
-     * The attributes that are guarded.
+     * The primary key associated with the model.
      *
+     * @var string
+     */
+	protected $primaryKey = 'id';
+
+    /**
      * @var array
      */
-    protected $guarded = ['created_at', 'updated_at'];
+    protected $fillable = ['staff_id', 'title', 'firstname', 'lastname', 'date_of_birth', 'gender', 'relation'];
 
     /**
      * The attributes that should be cast.
@@ -38,9 +38,9 @@ class Dependant extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function staff()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**

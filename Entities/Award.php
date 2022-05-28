@@ -14,26 +14,27 @@ class Award extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_awards';
+    protected $table = 'hrm_staff_awards';
 
     /**
-     * @var array
-     */
-    protected $fillable = ['id','employee_id', 'name', 'institution', 'country', 'year'];
-
-    /**
-     * The attributes that are guarded.
+     * The primary key associated with the model.
      *
+     * @var string
+     */
+	protected $primaryKey = 'id';
+
+    /**
      * @var array
      */
-    protected $guarded = ['created_at', 'updated_at'];
+    protected $fillable = ['staff_id', 'name', 'institution', 'country', 'year'];
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function staff()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
 }

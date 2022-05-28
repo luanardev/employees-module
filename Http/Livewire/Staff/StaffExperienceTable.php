@@ -5,21 +5,21 @@ namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 
 class StaffExperienceTable extends DataTableComponent
 {
 
-	public Employee $employee;
+	public Staff $staff;
 
 	public bool $showSearch = false;
 
 	public bool $showPerPage = false;
 
-	public function mount(Employee $employee)
+	public function mount(Staff $staff)
 	{
-		$this->employee = $employee;
+		$this->staff = $staff;
 	}
     
     public function rowView(): string
@@ -78,7 +78,7 @@ class StaffExperienceTable extends DataTableComponent
 
 	public function query()
 	{
-		return $this->employee->experience()->orderby('start_date', 'desc');
+		return $this->staff->experience()->orderby('start_date', 'desc');
 	}
 
 

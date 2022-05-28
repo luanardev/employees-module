@@ -19,7 +19,7 @@ class RemindRetirement extends Command
      *
      * @var string
      */
-    protected $description = 'Send employee retirement reminder.';
+    protected $description = 'Send staff retirement reminder.';
 
     /**
      * Create a new command instance.

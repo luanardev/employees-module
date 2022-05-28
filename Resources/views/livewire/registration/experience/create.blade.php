@@ -10,42 +10,42 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Job Position *</label>
                         <input type="text" wire:model.lazy="experience.job_position" name="job_position" class="form-control" placeholder="Enter Job Position" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Employer Name * </label>
                         <input type="text" wire:model.lazy="experience.employer_name" name="employer_name" class="form-control " placeholder="Enter Employer Name" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Employer Address </label>
                         <input type="text" wire:model.lazy="experience.employer_address" name="employer_address" class="form-control " placeholder="Enter Employer Address" />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Employer Phone </label>
                         <input type="tel" wire:model.lazy="experience.employer_phone"  name="phone_number" class="form-control" placeholder="Enter Phone Number"/>
                     </div>
                 </div>
               
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">Start Date *</label>
                         <input type="date" wire:model="experience.start_date"  class="form-control " />
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                         <label class="control-label">End Date *</label>
                         <input type="date" wire:model="experience.end_date" class="form-control" />

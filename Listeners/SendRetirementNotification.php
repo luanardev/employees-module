@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\Retirement;
 use Luanardev\Modules\Employees\Notifications\RetirementNotification;
 use Luanardev\Modules\Employees\Notifications\Admin\RetirementNotification as AdminNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendRetirementNotification implements ShouldQueue
 {
@@ -19,17 +19,17 @@ class SendRetirementNotification implements ShouldQueue
      */
     public function handle(Retirement $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
-        $adminEmail = EmployeeSettings::get('admin_email');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
+        $adminEmail = StaffConfig::get('admin_email');
 
         if($shouldNotify){
             Notification::send(
-                $event->employee,
-                new RetirementNotification($event->employee)
+                $event->staff,
+                new RetirementNotification($event->staff)
             );
 
             Notification::route('mail',$adminEmail)->notify(
-                new AdminNotification($event->employee)
+                new AdminNotification($event->staff)
             );
         }
     }

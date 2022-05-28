@@ -5,7 +5,7 @@ namespace Luanardev\Modules\Employees\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class AppointmentController extends Controller
 {
@@ -25,33 +25,33 @@ class AppointmentController extends Controller
      * Search a listing of the resource.
      * @return Renderable
      */
-    public function search()
+    public function add()
     {
         $this->authorize('view_appointment');
 
-        return view('employees::appointment.search');
+        return view('employees::appointment.add');
     }
 
     /**
      * Show the form for creating a new resource.
-     * @param Employee $employee
+     * @param Staff $staff
      * @return Renderable
      */
-    public function create(Employee $employee)
+    public function create(Staff $staff)
     {
         $this->authorize('create_appointment');
 
-        if($employee->employment->isAppointed()){
-            return back()->with('error', "{$employee->name()} already serving an Appointment");
+        if($staff->employment->isAppointed()){
+            return back()->with('error', "{$staff->name()} already serving an Appointment");
         }
-        elseif($employee->employment->isNotPermanent()){
-            return back()->with('error', "{$employee->name()} is not Permanent Staff ");
+        elseif($staff->employment->isNotPermanent()){
+            return back()->with('error', "{$staff->name()} is not Permanent Staff ");
         }
-        elseif($employee->employment->isNotConfirmed()){
-            return back()->with('error', "{$employee->name()} is not Confirmed Staff ");
+        elseif($staff->employment->isNotConfirmed()){
+            return back()->with('error', "{$staff->name()} is not Confirmed Staff ");
         }
         else{
-            return view('employees::appointment.create')->with(['employee' => $employee]);
+            return view('employees::appointment.create')->with(['staff' => $staff]);
         }
 
     }

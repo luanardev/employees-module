@@ -3,7 +3,7 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
 use Luanardev\Modules\Employees\Entities\Dependant;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class DependantWizard extends LivewireUI
@@ -45,13 +45,13 @@ class DependantWizard extends LivewireUI
 
     public function save()
     {
-        if(!session()->exists('employee')){
+        if(!session()->exists('staff')){
             return false;
         }
 
         $this->validate();
-        $employee = Employee::find(session()->get('employee'));
-        $this->dependant->employee()->associate($employee);
+        $staff = Staff::find(session()->get('staff'));
+        $this->dependant->staff()->associate($staff);
         $this->dependant->save();
         $this->resetFields();
         return $this->toastr('Dependant saved');
@@ -77,9 +77,9 @@ class DependantWizard extends LivewireUI
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $employee = Employee::find(session()->get('employee'));
-            $dependants = $employee->dependants()->get();
+        if(session()->exists('staff')){
+            $staff = Staff::find(session()->get('staff'));
+            $dependants = $staff->dependants()->get();
             $this->with('dependant', $dependants);
         }else{
             $this->create();

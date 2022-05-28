@@ -59,8 +59,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Luanardev\Modules\Employees\Entities\Employee::observe(
-            \Luanardev\Modules\Employees\Observers\EmployeeObserver::class
+        \Luanardev\Modules\Employees\Entities\Staff::observe(
+            \Luanardev\Modules\Employees\Observers\StaffObserver::class
         );
 
         \Luanardev\Modules\Employees\Entities\Employment::observe(

@@ -4,7 +4,7 @@
         <h3 class="card-title text-bold">Staff Career</h3>
     </div>
     <div class="card-body">
-        @foreach ($employee->orderedProgress() as $progress)
+        @foreach ($staff->orderedProgress() as $progress)
         <div class="timeline">
 
             <div class="time-label">
@@ -25,7 +25,7 @@
                 <div class="timeline-item">
                     <div class="timeline-header">
                         <p>
-                            <a href="#" class="text-bold">{{$progress->getDesignation()}}</a>
+                            <a href="#" class="text-bold">{{$progress->getPosition()}}</a>
                             <span class="float-right">
                                 {!! $progress->statusBadge() !!}
                             </span>
@@ -36,12 +36,11 @@
                     <div class="timeline-body">
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <strong>Grade Scale: </strong><span>{{$progress->gradeScale()}}</span>
+                                <strong>Grade: </strong><span>{{$progress->getGradeScale()}}</span>
                             </li>
                             <li class="list-group-item">
                                 <strong>Start Date: </strong><span>{{$progress->startDate()}}</span>
                             </li>
-
                         </ul>
                     </div>
                 </div>

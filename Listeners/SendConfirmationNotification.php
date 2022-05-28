@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\Confirmation;
 use Luanardev\Modules\Employees\Notifications\ConfirmationNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendConfirmationNotification implements ShouldQueue
 {
@@ -18,13 +18,13 @@ class SendConfirmationNotification implements ShouldQueue
      */
     public function handle(Confirmation $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
 
         if($shouldNotify){
 
             Notification::send(
-                $event->employee,
-                new ConfirmationNotification($event->employee)
+                $event->staff,
+                new ConfirmationNotification($event->staff)
             );
         }
     }

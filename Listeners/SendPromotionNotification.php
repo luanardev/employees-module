@@ -5,7 +5,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Luanardev\Modules\Employees\Events\Promotion;
 use Luanardev\Modules\Employees\Notifications\PromotionNotification;
-use EmployeeSettings;
+use StaffConfig;
 
 class SendPromotionNotification implements ShouldQueue
 {
@@ -18,11 +18,11 @@ class SendPromotionNotification implements ShouldQueue
      */
     public function handle(Promotion $event)
     {
-        $shouldNotify = (bool)EmployeeSettings::get('send_notification');
+        $shouldNotify = (bool)StaffConfig::get('send_notification');
 
         if($shouldNotify){
             Notification::send(
-                $event->progress->employee,
+                $event->progress->staff,
                 new PromotionNotification($event->progress)
             );
         }

@@ -20,43 +20,43 @@
     <div class="col-lg-10 col-md-12 col-sm-12">
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="profile" role="tabpanel" >
-                <livewire:employees::staff.staff-profile :employee=$employee />
+                <livewire:employees::staff.staff-profile :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="employment" role="tabpanel" >
-                <livewire:employees::staff.staff-employment :employee=$employee />
+                <livewire:employees::staff.staff-employment :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="career" role="tabpanel" >
-                <livewire:employees::staff.staff-career :employee=$employee />
+                <livewire:employees::staff.staff-career :staff=$staff />
             </div>
 
             <div class="tab-pane fade show" id="spouse" role="tabpanel" >
-                <livewire:employees::staff.staff-spouse :employee=$employee />
+                <livewire:employees::staff.staff-spouse :staff=$staff />
             </div>
 
             <div class="tab-pane fade show" id="kinsman" role="tabpanel" >
-                <livewire:employees::staff.staff-kinsman :employee=$employee />
+                <livewire:employees::staff.staff-kinsman :staff=$staff />
             </div>
 
             <div class="tab-pane fade show" id="dependants" role="tabpanel" >
-                <livewire:employees::staff.staff-dependant :employee=$employee />
+                <livewire:employees::staff.staff-dependant :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="qualifications" role="tabpanel" >
-                <livewire:employees::staff.staff-qualification :employee=$employee />
+                <livewire:employees::staff.staff-qualification :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="experience" role="tabpanel" >
-                <livewire:employees::staff.staff-experience :employee=$employee />
+                <livewire:employees::staff.staff-experience :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="awards" role="tabpanel" >
-                <livewire:employees::staff.staff-award :employee=$employee />
+                <livewire:employees::staff.staff-award :staff=$staff />
             </div>
 
             <div class="tab-pane fade" id="documents" role="tabpanel" >
-                <livewire:employees::staff.staff-document :employee=$employee />
+                <livewire:employees::staff.staff-document :staff=$staff />
             </div>
         </div>
     </div>

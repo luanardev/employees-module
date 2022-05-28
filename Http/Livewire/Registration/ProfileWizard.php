@@ -2,14 +2,14 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Registration;
 use Luanardev\LivewireUI\LivewireUI;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 use Luanardev\Modules\Employees\Enums\WithEnums;
 
 class ProfileWizard extends LivewireUI
 {
     use WithEnums;
 
-    public Employee $employee;
+    public Staff $staff;
 
     public function __construct()
     {
@@ -25,11 +25,11 @@ class ProfileWizard extends LivewireUI
 
     public function create()
     {
-        if(session()->exists('employee')){
-            session()->forget('employee');
+        if(session()->exists('staff')){
+            session()->forget('staff');
             $this->resetFields();
-            $this->alert('Employee added successfully');
-            $this->redirect(route('employee.create'));
+            $this->alert('Staff added successfully');
+            $this->redirect(route('staff.create'));
         }else{
             session()->forget('success');
         }
@@ -39,53 +39,53 @@ class ProfileWizard extends LivewireUI
     public function save()
     {
         $this->validate();
-        $this->employee->save();
-        session()->put('employee', $this->employee->id);
+        $this->staff->save();
+        session()->put('staff', $this->staff->id);
         $this->toastr('Profile saved');
     }
 
     public function rules()
     {
         return [
-            'employee.id' => 'nullable',
-            'employee.national_id' => 'nullable',
-            'employee.title' => 'required|string',
-            'employee.firstname' => 'required|string',
-            'employee.lastname' => 'required|string',
-            'employee.middlename' => 'nullable|string',
-            'employee.marital_status' => 'required|string',
-            'employee.date_of_birth' => 'required|date',
-            'employee.gender' => 'required|string',
-            'employee.contact_address' => 'required|string',
-            'employee.personal_email' => 'required|email',
-            'employee.official_email' => 'nullable|email',
-            'employee.phone1' => 'required|string',
-            'employee.phone2' => 'nullable|string',
-            'employee.home_village' => 'required|string',
-            'employee.home_authority' => 'required|string',
-            'employee.home_district' => 'required|string',
-            'employee.residence_country' => 'required|string'
+            'staff.id' => 'nullable',
+            'staff.national_id' => 'nullable',
+            'staff.title' => 'required|string',
+            'staff.firstname' => 'required|string',
+            'staff.lastname' => 'required|string',
+            'staff.middlename' => 'nullable|string',
+            'staff.marital_status' => 'required|string',
+            'staff.date_of_birth' => 'required|date',
+            'staff.gender' => 'required|string',
+            'staff.contact_address' => 'required|string',
+            'staff.personal_email' => 'required|email',
+            'staff.official_email' => 'nullable|email',
+            'staff.phone1' => 'required|string',
+            'staff.phone2' => 'nullable|string',
+            'staff.home_village' => 'required|string',
+            'staff.home_authority' => 'required|string',
+            'staff.home_district' => 'required|string',
+            'staff.residence_country' => 'required|string'
         ];
     }
 
     public function getListeners()
     {
         return [
-            'create-employee'  => 'create'
+            'create-staff'  => 'create'
         ];
     }
 
     public function resetFields()
     {
-        $this->reset(['employee']);
+        $this->reset(['staff']);
     }
 
     public function recovery()
     {
-        if(session()->exists('employee')){
-            $this->employee = Employee::find(session()->get('employee'));
+        if(session()->exists('staff')){
+            $this->staff = Staff::find(session()->get('staff'));
         }else{
-            $this->employee = new Employee;
+            $this->staff = new Staff;
 
         }
     }

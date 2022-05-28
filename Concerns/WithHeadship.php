@@ -2,58 +2,46 @@
 
 namespace Luanardev\Modules\Employees\Concerns;
 use Illuminate\Database\Eloquent\Model;
-use Luanardev\Modules\Employees\Entities\Employee;
-use Luanardev\Modules\Employees\Entities\Morphism;
-use Luanardev\Modules\Institution\Entities\Faculty;
-use Luanardev\Modules\Institution\Entities\Department;
-use Luanardev\Modules\Institution\Entities\Section;
+use Luanardev\Modules\Employees\Entities\Staff;
+use Luanardev\Modules\Employees\Entities\Headship;
 
 trait WithHeadship
 {
 
-    public function setHead($department)
+    public function getHead()
     {
-        if(!$department instanceof Depertment){
-            $department = Department::findorfail($department);
-        }
-        return $this->link($department);
-    }
-
-    public function setDean($faculty)
-    {
-        if(!$faculty instanceof Faculty){
-            $faculty = Faculty::findorfail($faculty);
-        }
-        return $this->link($faculty);
-    }
-
-    public function setManager($section)
-    {
-        if(!$section instanceof Section){
-            $section = Section::findorfail($section);
-        }
-        return $this->link($section);
-    }
-
-    public function head()
-    {
-        return $this->hasOneThrough(Employee::class, Morphism::class, 'model_id', 'id', 'id', 'employee_id')
-            ->where('model_type', Department::class)
+        return $this->hasOneThrough(Staff::class, Headship::class, 'department_id', 'id', 'id', 'staff_id')
+            ->where('position', 'Head')
             ->withDefault();
     }
 
-    public function dean()
+    public function getDeputyHead()
     {
-        return $this->hasOneThrough(Employee::class, Morphism::class, 'model_id', 'id', 'id', 'employee_id')
-            ->where('model_type', Faculty::class)
+        return $this->hasOneThrough(Staff::class, Headship::class, 'department_id', 'id', 'id', 'staff_id')
+            ->where('position', 'Deputy')
             ->withDefault();
     }
 
-    public function manager()
+    public function isHead()
     {
-        return $this->hasOneThrough(Employee::class, Morphism::class, 'model_id', 'id', 'id', 'employee_id')
-            ->where('model_type', Section::class)
-            ->withDefault();
+        $headship = new Headship();
+        return $headship->isHead($this);
     }
+
+    public function isDeputyHead()
+    {
+        $headship = new Headship();
+        return $headship->isDeputyHead($this);
+    }
+
+    public function hasHeadship()
+    {
+        if($this->isHead() || $this->isDeputyHead()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 }

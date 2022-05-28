@@ -3,15 +3,15 @@
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Qualification;
 use Luanardev\Modules\Employees\Entities\QualificationLevel;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class StaffQualification extends StaffProfile
 {
     public Qualification $qualification;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->qualification = new Qualification();
 
     }
@@ -37,7 +37,7 @@ class StaffQualification extends StaffProfile
     public function setHighest($key)
     {
         $qualification = Qualification::findorfail($key);
-        $this->employee->updateQuietly([
+        $this->staff->updateQuietly([
             'qualification' => $qualification->level
         ]);
         $this->browseMode()->emitRefresh()->toastr('Set Highest successful');
@@ -58,7 +58,7 @@ class StaffQualification extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->qualification->employee()->associate($this->employee);
+        $this->qualification->staff()->associate($this->staff);
         $this->qualification->save();
         $this->browseMode()->emitRefresh()->toastr('Qualification saved');
     }

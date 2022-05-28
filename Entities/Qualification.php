@@ -2,6 +2,7 @@
 
 namespace Luanardev\Modules\Employees\Entities;
 use Illuminate\Database\Eloquent\Model;
+use Luanardev\Modules\HRSettings\Entities\QualificationLevel;
 use Luanardev\Modules\Employees\Concerns\WithFinder;
 
 class Qualification extends Model
@@ -12,12 +13,19 @@ class Qualification extends Model
      *
      * @var string
      */
-    protected $table = 'hrm_employee_qualifications';
+    protected $table = 'hrm_staff_qualifications';
+
+    /**
+     * The primary key associated with the model.
+     *
+     * @var string
+     */
+	protected $primaryKey = 'id';
 
     /**
      * @var array
      */
-    protected $fillable = ['id','employee_id','name', 'level', 'specialization', 'institution', 'country', 'year'];
+    protected $fillable = ['id','staff_id','name', 'level', 'specialization', 'institution', 'country', 'year'];
 
     /**
      * The attributes that are guarded.
@@ -29,9 +37,9 @@ class Qualification extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employee()
+    public function staff()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
     /**

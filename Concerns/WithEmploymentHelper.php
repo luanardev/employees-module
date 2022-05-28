@@ -24,7 +24,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is serving
+     * Check whether staff is serving
      * @return bool
      */
     public function isServing()
@@ -33,7 +33,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is serving
+     * Check whether staff is serving
      * @return bool
      */
     public function isProbation()
@@ -42,7 +42,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is not permanent
+     * Check whether staff is not permanent
      * @return bool
      */
     public function isNotServing()
@@ -51,7 +51,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is permanent
+     * Check whether staff is permanent
      * @return bool
      */
     public function isPermanent()
@@ -60,7 +60,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is not permanent
+     * Check whether staff is not permanent
      * @return bool
      */
     public function isNotPermanent()
@@ -69,7 +69,7 @@ trait WithEmploymentHelper
     }
 
     /**
-      * Check wether employee is appointed
+      * Check wether staff is appointed
      * @return bool
      */
     public function isAppointed()
@@ -78,7 +78,7 @@ trait WithEmploymentHelper
     }
 
     /**
-      * Check wether employee is appointed
+      * Check wether staff is appointed
      * @return bool
      */
     public function isNotAppointed()
@@ -87,7 +87,7 @@ trait WithEmploymentHelper
     }
 
     /**
-      * Check wether employee is appointed
+      * Check wether staff is appointed
      * @return bool
      */
     public function isConfirmed()
@@ -96,7 +96,7 @@ trait WithEmploymentHelper
     }
 
     /**
-      * Check wether employee is confirmed
+      * Check wether staff is confirmed
      * @return bool
      */
     public function isNotConfirmed()
@@ -105,7 +105,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is academic
+     * Check whether staff is academic
      * @return bool
      */
     public function isAcademic()
@@ -122,7 +122,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is administrative
+     * Check whether staff is administrative
      * @return bool
      */
     public function isAdministrative()
@@ -131,7 +131,7 @@ trait WithEmploymentHelper
     }
 
     /**
-     * Check whether employee is support
+     * Check whether staff is support
      * @return bool
      */
     public function isSupport()
@@ -142,9 +142,9 @@ trait WithEmploymentHelper
 	/**
      * @return string
      */
-    public function getDesignation()
+    public function getPosition()
     {
-        return isset($this->designation->name)? $this->designation->name: null;
+        return isset($this->position->name)? $this->position->name: null;
     }
 
     /**
@@ -195,6 +195,30 @@ trait WithEmploymentHelper
         return isset($this->type->name)? $this->type->name: null;
     }
 
+    /**
+     * @return string
+     */
+    public function getGrade()
+    {
+        return isset($this->grade->name)? $this->grade->name: null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScale()
+    {
+        return isset($this->scale) ?  "{$this->scale} - {$this->notch}" : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGradeScale()
+    {
+        return isset($this->grade->name) ?  " {$this->grade->name} ( {$this->scale} - {$this->notch} )" : null;
+    }
+
 	/**
      * @return string
      */
@@ -208,7 +232,7 @@ trait WithEmploymentHelper
      *
      * @return void
      */
-    public function division()
+    public function getDivision()
     {
         if($this->isAcademic()){
             return isset($this->department_id) ?  $this->getDepartment(): null;
@@ -243,16 +267,6 @@ trait WithEmploymentHelper
     {
         return isset($this->start_date) && isset($this->end_date) ?
             Carbon::createFromDate($this->start_date)->diff($this->end_date)->format('%y Years, %m Months') : null;
-    }
-
-    /**
-     *Grade Notch
-     *
-     * @return string
-     */
-    public function gradeScale()
-    {
-        return isset($this->grade) ? "{$this->grade} - {$this->notch}" : null;
     }
 
     /**

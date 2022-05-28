@@ -2,16 +2,15 @@
 
 namespace Luanardev\Modules\Employees\Http\Livewire\Staff;
 use Luanardev\Modules\Employees\Entities\Spouse;
-use Luanardev\Modules\Employees\Entities\Employee;
+use Luanardev\Modules\Employees\Entities\Staff;
 
 class StaffSpouse extends StaffProfile
 {
-
     public Spouse $spouse;
 
-    public function mount(Employee $employee)
+    public function mount(Staff $staff)
     {
-        parent::mount($employee);
+        parent::mount($staff);
         $this->spouse = new Spouse();
     }
 
@@ -47,7 +46,7 @@ class StaffSpouse extends StaffProfile
     public function save()
     {
         $this->validate();
-        $this->spouse->employee()->associate($this->employee);
+        $this->spouse->staff()->associate($this->staff);
         $this->spouse->save();
         $this->browseMode()->emitRefresh()->toastr('Spouse saved');
     }

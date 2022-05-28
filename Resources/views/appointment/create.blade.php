@@ -22,7 +22,7 @@
 	
 	<div class="content"> 
 		<x-adminlte-flash />	
-		<livewire:employees::appointment.create-appointment :employee=$employee />	                                      
+		<livewire:employees::appointment.appointment :staff=$staff />	                                      
 	</div>
 </div>
 
