@@ -10,12 +10,12 @@
                     </button>
         
                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="actions">
-                        @if($employee->hasKinsman())
+                        @if($staff->hasKinsman())
 
-                            <a href="#" wire:click.prevent="edit({{$employee->kinsman->id}})" class="dropdown-item">
+                            <a href="#" wire:click.prevent="edit({{$staff->kinsman->id}})" class="dropdown-item">
                                 <i class="fas fa-edit"></i> Update
                             </a>
-                            <a href="#" wire:click.prevent="delete({{$employee->kinsman->id}})" class="dropdown-item">
+                            <a href="#" wire:click.prevent="delete({{$staff->kinsman->id}})" class="dropdown-item">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                             
@@ -38,41 +38,41 @@
                     <li class="list-group-item">
                         <span class="text-bold">Name</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->fullname()}}</span>
+                            <span class="text-bold">{{$staff->kinsman->fullname()}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Relation</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->relation}}</span>
+                            <span class="text-bold">{{$staff->kinsman->relation}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Occupation</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->occupation}}</span>
+                            <span class="text-bold">{{$staff->kinsman->occupation}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Organisation</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->organisation}}</span>
+                            <span class="text-bold">{{$staff->kinsman->organisation}}</span>
                         </a>
                     </li>
 
                     <li class="list-group-item">
                         <span class="text-bold">Contact Address</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->contact_address}}</span>
+                            <span class="text-bold">{{$staff->kinsman->contact_address}}</span>
                         </a>
                     </li>
                     <li class="list-group-item">
                         <span class="text-bold">Phone Number</span>
                         <a class="float-right">
-                            <span class="text-bold">{{$employee->kinsman->phone1}}</span><br/>
-                            @isset($employee->kinsman->phone2)
-                            <span class="text-bold">{{$employee->kinsman->phone2}}</span>
+                            <span class="text-bold">{{$staff->kinsman->phone1}}</span><br/>
+                            @isset($staff->kinsman->phone2)
+                            <span class="text-bold">{{$staff->kinsman->phone2}}</span>
                             @endisset
                         </a>
                     </li>
